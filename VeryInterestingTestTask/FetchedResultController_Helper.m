@@ -54,8 +54,10 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
     UITableView *tableView = self.tableView;
-    
+
     if ( [self.citiesController isEqual:controller]){
+        NSLog(@"city index %d %d",indexPath.section,indexPath.row);
+        NSLog(@"city new index %d %d",newIndexPath.section,newIndexPath.row);
         switch(type) {
             case NSFetchedResultsChangeInsert:
             {
@@ -63,6 +65,7 @@
                 NSMutableArray *array = [self.citiesAndPlacesList objectAtIndex:listIndexPath.section];
                 [array insertObject:anObject atIndex:listIndexPath.row];
                 [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:listIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                NSLog(@"insert city");
             }
                 break;
                 
@@ -72,6 +75,7 @@
                 NSMutableArray *array = [self.citiesAndPlacesList objectAtIndex:listIndexPath.section];
                 [array removeObjectAtIndex:listIndexPath.row];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:listIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                NSLog(@"remove city");
             }
                 break;
                 
@@ -81,6 +85,7 @@
                 NSMutableArray *array = [self.citiesAndPlacesList objectAtIndex:listIndexPath.section];
                 NSManagedObject *city = [array objectAtIndex:listIndexPath.row];
                 [self.delegate configureCell:(UITableViewCell *)[tableView cellForRowAtIndexPath:listIndexPath] managedObject:city ];
+                NSLog(@"update city");
             }
                 break;
                 
@@ -97,11 +102,14 @@
                 [array insertObject:city atIndex:listIndexPath.row];
                 [tableView insertRowsAtIndexPaths:[NSArray
                                                    arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                NSLog(@"move city");
             }
                 break;
         }
     }
     else if ([self.placesController isEqual:controller]){
+        NSLog(@"place index %d %d",indexPath.section,indexPath.row);
+        NSLog(@"place new index %d %d",newIndexPath.section,newIndexPath.row);
         switch(type) {
             case NSFetchedResultsChangeInsert:
             {
@@ -109,6 +117,7 @@
                 NSMutableArray *array = [self.citiesAndPlacesList objectAtIndex:listIndexPath.section];
                 [array insertObject:anObject atIndex:listIndexPath.row];
                 [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:listIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                NSLog(@"insert place");
             }
                 break;
                 
@@ -118,7 +127,7 @@
                 NSMutableArray *array = [self.citiesAndPlacesList objectAtIndex:listIndexPath.section];
                 [array removeObjectAtIndex:listIndexPath.row];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:listIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                NSLog(@"remove object");
+                NSLog(@"remove place %d %d",listIndexPath.section ,listIndexPath.row);
             }
                 break;
                 
@@ -128,6 +137,7 @@
                 NSMutableArray *array = [self.citiesAndPlacesList objectAtIndex:listIndexPath.section];
                 NSManagedObject *place = [array objectAtIndex:listIndexPath.row];
                 [self.delegate configureCell:(UITableViewCell *)[tableView cellForRowAtIndexPath:listIndexPath] managedObject:place ];
+                NSLog(@"update place");
             }
                 break;
                 
@@ -144,6 +154,7 @@
                 [array insertObject:place atIndex:listIndexPath.row];
                 [tableView insertRowsAtIndexPaths:[NSArray
                                                    arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                NSLog(@"move place");
             }
                 break;
         }
@@ -153,7 +164,7 @@
 - (NSIndexPath *) getCityIndexPathInTableView: (NSIndexPath *) indexPath{
     int rows = 0;
     NSManagedObject * city;
-    for (int i=0; i<indexPath.row-1; i++) {
+    for (int i=0; i<indexPath.row-2; i++) {
         city = [self.citiesController objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
         NSArray *places = [city valueForKey:@"places"];
         rows += [places count] + 1;
@@ -163,8 +174,11 @@
 
 - (NSIndexPath *) getPlaceIndexPathInTableView: (NSIndexPath *) indexPath{
     NSManagedObject *place = [self.placesController objectAtIndexPath:indexPath];
+    NSLog(@"%@",[place valueForKey:@"text"]);
     NSManagedObject *city = [place valueForKey:@"city"];
+    NSLog(@"%@",[city valueForKey:@"name"]);
     NSIndexPath* cityIndexPath = [self.citiesController indexPathForObject:city];
+    NSLog(@"cityIndexpath %d %d",cityIndexPath.section,cityIndexPath.row);
     return [NSIndexPath indexPathForRow: (cityIndexPath.row + indexPath.row + 1) inSection:indexPath.section];
 }
 
@@ -176,9 +190,11 @@
             case NSFetchedResultsChangeInsert:
                 [self.citiesAndPlacesList insertObject:[[NSMutableArray alloc] init] atIndex:sectionIndex];
                 [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                NSLog(@"insert section");
                 break;
                 
             case NSFetchedResultsChangeDelete:
+                NSLog(@"remove section");
                 [self.citiesAndPlacesList removeObjectAtIndex:sectionIndex];
                 [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
                 break;

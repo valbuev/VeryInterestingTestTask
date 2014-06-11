@@ -199,7 +199,7 @@
                         NSString *url = [photo valueForKey:@"url"];
                         if(url){
                             id<UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
-                            [(AppDelegate *)appDelegate downloadPhoto:url forPhotoManagedObject:photo];
+                            //[(AppDelegate *)appDelegate downloadPhoto:url forPhotoManagedObject:photo];
                         }
                         [cell.imageView setImage:[UIImage imageNamed:@"question_mark.jpg"]];
                     }
@@ -258,11 +258,24 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"delete row");
         NSMutableArray *currentLetter = [[self citiesAndPlacesList] objectAtIndex:indexPath.section];
         NSManagedObject *managedObject = (NSManagedObject *) [currentLetter objectAtIndex:indexPath.row];
+        NSManagedObject *city = [managedObject valueForKey:@"city"];
+        NSSet *places = [city valueForKey:@"places"];
+        NSManagedObject *letter = [city valueForKey:@"first_letter"];
+        NSSet *cities = [letter valueForKey:@"cities"];
         [self.managedObjectContext deleteObject:managedObject];
         [self saveContext];
+        if([places count] == 0){
+            [self.managedObjectContext deleteObject:city];
+            NSLog(@"delete city");
+            [self saveContext];
+            if([cities count] == 1){
+                NSLog(@"selete letter");
+                [self.managedObjectContext deleteObject:letter];
+                [self saveContext];
+            }
+        }
         //[placesTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }

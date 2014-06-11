@@ -26,7 +26,7 @@
                   [url_str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     NSURLRequest *theRequest=[NSURLRequest requestWithURL:url
                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                          timeoutInterval:60.0];
+                                          timeoutInterval:10.0];
     
     theConnection = [NSURLConnection connectionWithRequest:theRequest delegate:self];
     if(theConnection){
@@ -36,6 +36,7 @@
     else{
         [self.delegate setNetworkIndicatorVisible:NO];
     }
+    NSLog(@"start downloading");
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

@@ -18,7 +18,7 @@
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longtitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="text" attributeType="String" syncable="YES"/>
-        <relationship name="city" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="City" inverseName="places" inverseEntity="City" syncable="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="places" inverseEntity="City" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="place" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>

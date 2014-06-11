@@ -167,7 +167,7 @@
                  forKey:USER_DEFAULTS__IS_JSON_DATA_URL_HAD_BEEN_DOWNLOADED__KEY];
             }
         }
-        //[self performFetchForPlacesListViewController];
+        [self performFetchForPlacesListViewController];
         //[self printIntoLog];
     });
 }
@@ -335,9 +335,9 @@
     NSManagedObject * photo = (NSManagedObject* )object;
     [photo setValue:filePath forKey:@"image"];
     [photo setValue:nil forKey:@"url"];
-    NSManagedObject * place = [photo valueForKey:@"place"];
-    [place willChangeValueForKey:@"text"];
-    [place didChangeValueForKey:@"text"];
+    //NSManagedObject * place = [photo valueForKey:@"place"];
+    //[place willChangeValueForKey:@"text"];
+    //[place didChangeValueForKey:@"text"];
     [self saveContext];
 }
 

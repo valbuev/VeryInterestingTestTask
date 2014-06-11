@@ -25,9 +25,6 @@
 		A344D3E61932D3F7007C6D72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3E51932D3F7007C6D72 /* CoreData.framework */; };
 		A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */; };
 		A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A344D3EA1932DF44007C6D72 /* Localizable.strings */; };
-		A344D3EF1932F210007C6D72 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = A344D3EE1932F210007C6D72 /* City.m */; };
-		A344D3F21932F222007C6D72 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = A344D3F11932F222007C6D72 /* Place.m */; };
-		A344D3F51932F230007C6D72 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = A344D3F41932F230007C6D72 /* Photo.m */; };
 		A34683F51935D4CA00E9DC2B /* PhotoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = A34683F41935D4CA00E9DC2B /* PhotoDownloader.m */; };
 		A34683F71936D14100E9DC2B /* question_mark.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A34683F61936D14100E9DC2B /* question_mark.jpg */; };
 		A3953EEC193437C400FB70C8 /* PlacesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3953EEB193437C400FB70C8 /* PlacesListViewController.m */; };
@@ -68,12 +65,6 @@
 		A344D3E51932D3F7007C6D72 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A344D3E81932D69A007C6D72 /* PlacesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlacesModel.xcdatamodel; sourceTree = "<group>"; };
 		A344D3EA1932DF44007C6D72 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		A344D3ED1932F210007C6D72 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = City.h; path = Entities/City.h; sourceTree = "<group>"; };
-		A344D3EE1932F210007C6D72 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = City.m; path = Entities/City.m; sourceTree = "<group>"; };
-		A344D3F01932F222007C6D72 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = Entities/Place.h; sourceTree = "<group>"; };
-		A344D3F11932F222007C6D72 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = Entities/Place.m; sourceTree = "<group>"; };
-		A344D3F31932F230007C6D72 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = Entities/Photo.h; sourceTree = "<group>"; };
-		A344D3F41932F230007C6D72 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = Entities/Photo.m; sourceTree = "<group>"; };
 		A34683F31935D4CA00E9DC2B /* PhotoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDownloader.h; sourceTree = "<group>"; };
 		A34683F41935D4CA00E9DC2B /* PhotoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDownloader.m; sourceTree = "<group>"; };
 		A34683F61936D14100E9DC2B /* question_mark.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = question_mark.jpg; sourceTree = "<group>"; };
@@ -142,7 +133,6 @@
 		A344D3B31932D391007C6D72 /* VeryInterestingTestTask */ = {
 			isa = PBXGroup;
 			children = (
-				A344D3EC1932F1D8007C6D72 /* Entities */,
 				A344D3BC1932D391007C6D72 /* AppDelegate.h */,
 				A344D3BD1932D391007C6D72 /* AppDelegate.m */,
 				A34683F31935D4CA00E9DC2B /* PhotoDownloader.h */,
@@ -191,19 +181,6 @@
 				A344D3D81932D391007C6D72 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A344D3EC1932F1D8007C6D72 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				A344D3ED1932F210007C6D72 /* City.h */,
-				A344D3EE1932F210007C6D72 /* City.m */,
-				A344D3F01932F222007C6D72 /* Place.h */,
-				A344D3F11932F222007C6D72 /* Place.m */,
-				A344D3F31932F230007C6D72 /* Photo.h */,
-				A344D3F41932F230007C6D72 /* Photo.m */,
-			);
-			name = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,11 +284,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3AF13F119357533004C02E0 /* FetchedResultController_Helper.m in Sources */,
-				A344D3F51932F230007C6D72 /* Photo.m in Sources */,
-				A344D3EF1932F210007C6D72 /* City.m in Sources */,
 				A3205468193498BD00BBAF5F /* CityTableViewCell.m in Sources */,
 				A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */,
-				A344D3F21932F222007C6D72 /* Place.m in Sources */,
 				A344D3BE1932D391007C6D72 /* AppDelegate.m in Sources */,
 				A3953EEC193437C400FB70C8 /* PlacesListViewController.m in Sources */,
 				A344D3BA1932D391007C6D72 /* main.m in Sources */,
