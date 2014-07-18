@@ -122,6 +122,7 @@
 		A31B65EF197977AA00CBCEE3 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				A31B660F19798B5100CBCEE3 /* AppSettings */,
 				A31B65FB19797E5800CBCEE3 /* Place */,
 				A31B65FA19797E5100CBCEE3 /* City */,
 				A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */,
@@ -352,10 +353,12 @@
 				A31B65F319797E4B00CBCEE3 /* Place.m in Sources */,
 				A344D3C71932D391007C6D72 /* ViewController.m in Sources */,
 				A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */,
+				A31B660E19798B4D00CBCEE3 /* AppSettings.m in Sources */,
 				A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */,
 				A344D3BE1932D391007C6D72 /* AppDelegate.m in Sources */,
 				A31B65F919797E4C00CBCEE3 /* City.m in Sources */,
 				A344D3BA1932D391007C6D72 /* main.m in Sources */,
+				A31B661219798B7900CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
