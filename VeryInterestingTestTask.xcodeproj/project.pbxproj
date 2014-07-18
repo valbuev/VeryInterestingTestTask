@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A31B65F319797E4B00CBCEE3 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B65F219797E4B00CBCEE3 /* Place.m */; };
+		A31B65F619797E4B00CBCEE3 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B65F519797E4B00CBCEE3 /* Photo.m */; };
+		A31B65F919797E4C00CBCEE3 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B65F819797E4C00CBCEE3 /* City.m */; };
+		A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B65FE19797EA300CBCEE3 /* Place+PlaceCategory.m */; };
+		A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */; };
+		A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660719797EFE00CBCEE3 /* City+CityCategory.m */; };
 		A344D3AE1932D391007C6D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AD1932D391007C6D72 /* Foundation.framework */; };
 		A344D3B01932D391007C6D72 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AF1932D391007C6D72 /* CoreGraphics.framework */; };
 		A344D3B21932D391007C6D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3B11932D391007C6D72 /* UIKit.framework */; };
@@ -38,6 +44,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A31B65F119797E4B00CBCEE3 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = DataModel/Place.h; sourceTree = "<group>"; };
+		A31B65F219797E4B00CBCEE3 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = DataModel/Place.m; sourceTree = "<group>"; };
+		A31B65F419797E4B00CBCEE3 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = DataModel/Photo.h; sourceTree = "<group>"; };
+		A31B65F519797E4B00CBCEE3 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = DataModel/Photo.m; sourceTree = "<group>"; };
+		A31B65F719797E4C00CBCEE3 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = City.h; path = DataModel/City.h; sourceTree = "<group>"; };
+		A31B65F819797E4C00CBCEE3 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = City.m; path = DataModel/City.m; sourceTree = "<group>"; };
+		A31B65FD19797EA300CBCEE3 /* Place+PlaceCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Place+PlaceCategory.h"; path = "DataModel/Place+PlaceCategory.h"; sourceTree = "<group>"; };
+		A31B65FE19797EA300CBCEE3 /* Place+PlaceCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Place+PlaceCategory.m"; path = "DataModel/Place+PlaceCategory.m"; sourceTree = "<group>"; };
+		A31B660019797EBF00CBCEE3 /* Photo+PhotoCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+PhotoCategory.h"; path = "DataModel/Photo+PhotoCategory.h"; sourceTree = "<group>"; };
+		A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+PhotoCategory.m"; path = "DataModel/Photo+PhotoCategory.m"; sourceTree = "<group>"; };
+		A31B660619797EFE00CBCEE3 /* City+CityCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "City+CityCategory.h"; path = "DataModel/City+CityCategory.h"; sourceTree = "<group>"; };
+		A31B660719797EFE00CBCEE3 /* City+CityCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "City+CityCategory.m"; path = "DataModel/City+CityCategory.m"; sourceTree = "<group>"; };
 		A344D3AA1932D391007C6D72 /* VeryInterestingTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeryInterestingTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A344D3AD1932D391007C6D72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A344D3AF1932D391007C6D72 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -88,6 +106,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A31B65EE197977A100CBCEE3 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
+				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
+				A344D3C51932D391007C6D72 /* ViewController.h */,
+				A344D3C61932D391007C6D72 /* ViewController.m */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		A31B65EF197977AA00CBCEE3 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				A31B65FB19797E5800CBCEE3 /* Place */,
+				A31B65FA19797E5100CBCEE3 /* City */,
+				A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		A31B65FA19797E5100CBCEE3 /* City */ = {
+			isa = PBXGroup;
+			children = (
+				A31B65F719797E4C00CBCEE3 /* City.h */,
+				A31B65F819797E4C00CBCEE3 /* City.m */,
+				A31B660619797EFE00CBCEE3 /* City+CityCategory.h */,
+				A31B660719797EFE00CBCEE3 /* City+CityCategory.m */,
+			);
+			name = City;
+			sourceTree = "<group>";
+		};
+		A31B65FB19797E5800CBCEE3 /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				A31B65FC19797E5F00CBCEE3 /* Photo */,
+				A31B65F119797E4B00CBCEE3 /* Place.h */,
+				A31B65F219797E4B00CBCEE3 /* Place.m */,
+				A31B65FD19797EA300CBCEE3 /* Place+PlaceCategory.h */,
+				A31B65FE19797EA300CBCEE3 /* Place+PlaceCategory.m */,
+			);
+			name = Place;
+			sourceTree = "<group>";
+		};
+		A31B65FC19797E5F00CBCEE3 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				A31B65F419797E4B00CBCEE3 /* Photo.h */,
+				A31B65F519797E4B00CBCEE3 /* Photo.m */,
+				A31B660019797EBF00CBCEE3 /* Photo+PhotoCategory.h */,
+				A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */,
+			);
+			name = Photo;
+			sourceTree = "<group>";
+		};
 		A344D3A11932D391007C6D72 = {
 			isa = PBXGroup;
 			children = (
@@ -122,12 +195,10 @@
 		A344D3B31932D391007C6D72 /* VeryInterestingTestTask */ = {
 			isa = PBXGroup;
 			children = (
+				A31B65EF197977AA00CBCEE3 /* DataModel */,
+				A31B65EE197977A100CBCEE3 /* Interface */,
 				A344D3BC1932D391007C6D72 /* AppDelegate.h */,
 				A344D3BD1932D391007C6D72 /* AppDelegate.m */,
-				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
-				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
-				A344D3C51932D391007C6D72 /* ViewController.h */,
-				A344D3C61932D391007C6D72 /* ViewController.m */,
 				A344D3C81932D391007C6D72 /* Images.xcassets */,
 				A344D3B41932D391007C6D72 /* Supporting Files */,
 			);
@@ -141,7 +212,6 @@
 				A344D3B61932D391007C6D72 /* InfoPlist.strings */,
 				A344D3B91932D391007C6D72 /* main.m */,
 				A344D3BB1932D391007C6D72 /* VeryInterestingTestTask-Prefix.pch */,
-				A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */,
 				A344D3EA1932DF44007C6D72 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
@@ -264,9 +334,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */,
+				A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */,
+				A31B65F619797E4B00CBCEE3 /* Photo.m in Sources */,
+				A31B65F319797E4B00CBCEE3 /* Place.m in Sources */,
 				A344D3C71932D391007C6D72 /* ViewController.m in Sources */,
+				A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */,
 				A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */,
 				A344D3BE1932D391007C6D72 /* AppDelegate.m in Sources */,
+				A31B65F919797E4C00CBCEE3 /* City.m in Sources */,
 				A344D3BA1932D391007C6D72 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +560,7 @@
 				A344D3E11932D391007C6D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A344D3E21932D391007C6D72 /* Build configuration list for PBXNativeTarget "VeryInterestingTestTaskTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +569,7 @@
 				A344D3E41932D391007C6D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
