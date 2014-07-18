@@ -13,6 +13,15 @@
 		A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */; };
 		A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660719797EFE00CBCEE3 /* City+CityCategory.m */; };
 		A31B660B1979878400CBCEE3 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31B660A1979878400CBCEE3 /* no_photo.jpg */; };
+		A31B660E19798B4D00CBCEE3 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660D19798B4D00CBCEE3 /* AppSettings.m */; };
+		A31B661219798B7900CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661119798B7900CBCEE3 /* AppSettings+AppSettingsCategory.m */; };
+		A31B66151979973400CBCEE3 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66141979973400CBCEE3 /* City.m */; };
+		A31B661819799C0800CBCEE3 /* InitialDownloaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661719799C0800CBCEE3 /* InitialDownloaderView.m */; };
+		A31B661B19799C8000CBCEE3 /* CitiesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661A19799C8000CBCEE3 /* CitiesListView.m */; };
+		A31B662219799DAD00CBCEE3 /* CityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662119799DAD00CBCEE3 /* CityTableViewCell.m */; };
+		A31B662519799DC500CBCEE3 /* PlaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662419799DC500CBCEE3 /* PlaceTableViewCell.m */; };
+		A31B662B1979AE1100CBCEE3 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66281979AE1100CBCEE3 /* AppSettings.m */; };
+		A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */; };
 		A344D3AE1932D391007C6D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AD1932D391007C6D72 /* Foundation.framework */; };
 		A344D3B01932D391007C6D72 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AF1932D391007C6D72 /* CoreGraphics.framework */; };
 		A344D3B21932D391007C6D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3B11932D391007C6D72 /* UIKit.framework */; };
@@ -21,7 +30,6 @@
 		A344D3BE1932D391007C6D72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A344D3BD1932D391007C6D72 /* AppDelegate.m */; };
 		A344D3C11932D391007C6D72 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */; };
 		A344D3C41932D391007C6D72 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A344D3C21932D391007C6D72 /* Main_iPad.storyboard */; };
-		A344D3C71932D391007C6D72 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A344D3C61932D391007C6D72 /* ViewController.m */; };
 		A344D3C91932D391007C6D72 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A344D3C81932D391007C6D72 /* Images.xcassets */; };
 		A344D3D01932D391007C6D72 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3CF1932D391007C6D72 /* XCTest.framework */; };
 		A344D3D11932D391007C6D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AD1932D391007C6D72 /* Foundation.framework */; };
@@ -55,6 +63,22 @@
 		A31B660619797EFE00CBCEE3 /* City+CityCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "City+CityCategory.h"; path = "DataModel/City+CityCategory.h"; sourceTree = "<group>"; };
 		A31B660719797EFE00CBCEE3 /* City+CityCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "City+CityCategory.m"; path = "DataModel/City+CityCategory.m"; sourceTree = "<group>"; };
 		A31B660A1979878400CBCEE3 /* no_photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = no_photo.jpg; path = ../../../../../Users/bva/Downloads/no_photo.jpg; sourceTree = "<group>"; };
+		A31B660D19798B4D00CBCEE3 /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppSettings.m; path = DataModel/AppSettings.m; sourceTree = "<group>"; };
+		A31B661119798B7900CBCEE3 /* AppSettings+AppSettingsCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AppSettings+AppSettingsCategory.m"; path = "DataModel/AppSettings+AppSettingsCategory.m"; sourceTree = "<group>"; };
+		A31B66131979973400CBCEE3 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = City.h; path = DataModel/City.h; sourceTree = "<group>"; };
+		A31B66141979973400CBCEE3 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = City.m; path = DataModel/City.m; sourceTree = "<group>"; };
+		A31B661619799C0800CBCEE3 /* InitialDownloaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitialDownloaderView.h; path = Interface/InitialDownloaderView.h; sourceTree = "<group>"; };
+		A31B661719799C0800CBCEE3 /* InitialDownloaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InitialDownloaderView.m; path = Interface/InitialDownloaderView.m; sourceTree = "<group>"; };
+		A31B661919799C8000CBCEE3 /* CitiesListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CitiesListView.h; path = Interface/CitiesListView.h; sourceTree = "<group>"; };
+		A31B661A19799C8000CBCEE3 /* CitiesListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CitiesListView.m; path = Interface/CitiesListView.m; sourceTree = "<group>"; };
+		A31B662019799DAD00CBCEE3 /* CityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityTableViewCell.h; path = Interface/CityTableViewCell.h; sourceTree = "<group>"; };
+		A31B662119799DAD00CBCEE3 /* CityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityTableViewCell.m; path = Interface/CityTableViewCell.m; sourceTree = "<group>"; };
+		A31B662319799DC500CBCEE3 /* PlaceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceTableViewCell.h; path = Interface/PlaceTableViewCell.h; sourceTree = "<group>"; };
+		A31B662419799DC500CBCEE3 /* PlaceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceTableViewCell.m; path = Interface/PlaceTableViewCell.m; sourceTree = "<group>"; };
+		A31B66271979AE1100CBCEE3 /* AppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppSettings.h; path = DataModel/AppSettings.h; sourceTree = "<group>"; };
+		A31B66281979AE1100CBCEE3 /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppSettings.m; path = DataModel/AppSettings.m; sourceTree = "<group>"; };
+		A31B66291979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AppSettings+AppSettingsCategory.h"; path = "DataModel/AppSettings+AppSettingsCategory.h"; sourceTree = "<group>"; };
+		A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AppSettings+AppSettingsCategory.m"; path = "DataModel/AppSettings+AppSettingsCategory.m"; sourceTree = "<group>"; };
 		A344D3AA1932D391007C6D72 /* VeryInterestingTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeryInterestingTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A344D3AD1932D391007C6D72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A344D3AF1932D391007C6D72 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -67,8 +91,6 @@
 		A344D3BD1932D391007C6D72 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A344D3C01932D391007C6D72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		A344D3C31932D391007C6D72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		A344D3C51932D391007C6D72 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A344D3C61932D391007C6D72 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A344D3C81932D391007C6D72 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A344D3CE1932D391007C6D72 /* VeryInterestingTestTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VeryInterestingTestTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A344D3CF1932D391007C6D72 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -110,8 +132,7 @@
 			children = (
 				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
 				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
-				A344D3C51932D391007C6D72 /* ViewController.h */,
-				A344D3C61932D391007C6D72 /* ViewController.m */,
+				A31B661C19799CE900CBCEE3 /* CitiesListView */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -119,7 +140,7 @@
 		A31B65EF197977AA00CBCEE3 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				A31B660F19798B5100CBCEE3 /* AppSettings */,
+				A31B66261979ADF100CBCEE3 /* AppSettings */,
 				A31B65FB19797E5800CBCEE3 /* Place */,
 				A31B65FA19797E5100CBCEE3 /* City */,
 				A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */,
@@ -167,6 +188,56 @@
 				A31B660A1979878400CBCEE3 /* no_photo.jpg */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		A31B661C19799CE900CBCEE3 /* CitiesListView */ = {
+			isa = PBXGroup;
+			children = (
+				A31B661919799C8000CBCEE3 /* CitiesListView.h */,
+				A31B661A19799C8000CBCEE3 /* CitiesListView.m */,
+				A31B661F19799D4000CBCEE3 /* PlaceTableViewCell */,
+				A31B661E19799D0E00CBCEE3 /* CityTableViewCell */,
+				A31B661D19799CF700CBCEE3 /* InitialDownloaderView */,
+			);
+			name = CitiesListView;
+			sourceTree = "<group>";
+		};
+		A31B661D19799CF700CBCEE3 /* InitialDownloaderView */ = {
+			isa = PBXGroup;
+			children = (
+				A31B661619799C0800CBCEE3 /* InitialDownloaderView.h */,
+				A31B661719799C0800CBCEE3 /* InitialDownloaderView.m */,
+			);
+			name = InitialDownloaderView;
+			sourceTree = "<group>";
+		};
+		A31B661E19799D0E00CBCEE3 /* CityTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A31B662019799DAD00CBCEE3 /* CityTableViewCell.h */,
+				A31B662119799DAD00CBCEE3 /* CityTableViewCell.m */,
+			);
+			name = CityTableViewCell;
+			sourceTree = "<group>";
+		};
+		A31B661F19799D4000CBCEE3 /* PlaceTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A31B662319799DC500CBCEE3 /* PlaceTableViewCell.h */,
+				A31B662419799DC500CBCEE3 /* PlaceTableViewCell.m */,
+			);
+			name = PlaceTableViewCell;
+			sourceTree = "<group>";
+		};
+		A31B66261979ADF100CBCEE3 /* AppSettings */ = {
+			isa = PBXGroup;
+			children = (
+				A31B66271979AE1100CBCEE3 /* AppSettings.h */,
+				A31B66281979AE1100CBCEE3 /* AppSettings.m */,
+				A31B66291979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.h */,
+				A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */,
+			);
+			name = AppSettings;
 			sourceTree = "<group>";
 		};
 		A344D3A11932D391007C6D72 = {
@@ -344,13 +415,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31B662219799DAD00CBCEE3 /* CityTableViewCell.m in Sources */,
+				A31B661B19799C8000CBCEE3 /* CitiesListView.m in Sources */,
+				A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */,
+				A31B662519799DC500CBCEE3 /* PlaceTableViewCell.m in Sources */,
 				A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */,
 				A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */,
 				A31B66151979973400CBCEE3 /* City.m in Sources */,
 				A31B65F619797E4B00CBCEE3 /* Photo.m in Sources */,
 				A31B65F319797E4B00CBCEE3 /* Place.m in Sources */,
-				A344D3C71932D391007C6D72 /* ViewController.m in Sources */,
 				A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */,
+				A31B661819799C0800CBCEE3 /* InitialDownloaderView.m in Sources */,
+				A31B662B1979AE1100CBCEE3 /* AppSettings.m in Sources */,
 				A31B660E19798B4D00CBCEE3 /* AppSettings.m in Sources */,
 				A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */,
 				A344D3BE1932D391007C6D72 /* AppDelegate.m in Sources */,
