@@ -13,6 +13,7 @@
 @implementation City
 
 @dynamic name;
+@dynamic sectionHidden;
 @dynamic places;
 
 @end

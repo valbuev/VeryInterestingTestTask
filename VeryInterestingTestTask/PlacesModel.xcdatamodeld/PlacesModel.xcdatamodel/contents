@@ -5,10 +5,12 @@
     </entity>
     <entity name="City" representedClassName="City" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="sectionHidden" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <relationship name="places" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Place" inverseName="city" inverseEntity="Place" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trumbnail_filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="photos" inverseEntity="Place" syncable="YES"/>
     </entity>
@@ -21,9 +23,9 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="place" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="City" positionX="-488" positionY="-0" width="128" height="73"/>
-        <element name="Photo" positionX="-108" positionY="-0" width="128" height="88"/>
-        <element name="Place" positionX="-299" positionY="-45" width="128" height="133"/>
         <element name="AppSettings" positionX="-486" positionY="-142" width="128" height="58"/>
+        <element name="City" positionX="-488" positionY="-0" width="128" height="88"/>
+        <element name="Photo" positionX="-108" positionY="-0" width="128" height="103"/>
+        <element name="Place" positionX="-299" positionY="-45" width="128" height="133"/>
     </elements>
 </model>
