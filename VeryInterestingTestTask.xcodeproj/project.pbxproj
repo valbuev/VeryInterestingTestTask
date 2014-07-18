@@ -13,6 +13,7 @@
 		A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B65FE19797EA300CBCEE3 /* Place+PlaceCategory.m */; };
 		A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */; };
 		A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660719797EFE00CBCEE3 /* City+CityCategory.m */; };
+		A31B660B1979878400CBCEE3 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31B660A1979878400CBCEE3 /* no_photo.jpg */; };
 		A344D3AE1932D391007C6D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AD1932D391007C6D72 /* Foundation.framework */; };
 		A344D3B01932D391007C6D72 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AF1932D391007C6D72 /* CoreGraphics.framework */; };
 		A344D3B21932D391007C6D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3B11932D391007C6D72 /* UIKit.framework */; };
@@ -56,6 +57,7 @@
 		A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+PhotoCategory.m"; path = "DataModel/Photo+PhotoCategory.m"; sourceTree = "<group>"; };
 		A31B660619797EFE00CBCEE3 /* City+CityCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "City+CityCategory.h"; path = "DataModel/City+CityCategory.h"; sourceTree = "<group>"; };
 		A31B660719797EFE00CBCEE3 /* City+CityCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "City+CityCategory.m"; path = "DataModel/City+CityCategory.m"; sourceTree = "<group>"; };
+		A31B660A1979878400CBCEE3 /* no_photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = no_photo.jpg; path = ../../../../../Users/bva/Downloads/no_photo.jpg; sourceTree = "<group>"; };
 		A344D3AA1932D391007C6D72 /* VeryInterestingTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeryInterestingTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A344D3AD1932D391007C6D72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A344D3AF1932D391007C6D72 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -161,6 +163,14 @@
 			name = Photo;
 			sourceTree = "<group>";
 		};
+		A31B66091979877100CBCEE3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A31B660A1979878400CBCEE3 /* no_photo.jpg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A344D3A11932D391007C6D72 = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +218,7 @@
 		A344D3B41932D391007C6D72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A31B66091979877100CBCEE3 /* Resources */,
 				A344D3B51932D391007C6D72 /* VeryInterestingTestTask-Info.plist */,
 				A344D3B61932D391007C6D72 /* InfoPlist.strings */,
 				A344D3B91932D391007C6D72 /* main.m */,
@@ -311,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31B660B1979878400CBCEE3 /* no_photo.jpg in Resources */,
 				A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */,
 				A344D3C41932D391007C6D72 /* Main_iPad.storyboard in Resources */,
 				A344D3C91932D391007C6D72 /* Images.xcassets in Resources */,
