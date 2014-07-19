@@ -27,4 +27,25 @@
     return place;
 }
 
+// Creates and returns new NSFetchedResultsController with Places grouped by city.name
++ (NSFetchedResultsController *) newFetchedResultsControllerForMOC:(NSManagedObjectContext *) context{
+    
+    NSFetchedResultsController *controller;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    
+    NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"city.name" ascending:YES];
+    NSSortDescriptor *sort2 = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    
+    [request setSortDescriptors:[NSArray arrayWithObjects:sort1,sort2, nil]];
+    
+    controller = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                     managedObjectContext:context
+                                                       sectionNameKeyPath:@"city.name"
+                                                                cacheName:@""];
+    
+    return controller;
+}
+
 @end

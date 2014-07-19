@@ -191,6 +191,7 @@
     for(NSDictionary *placeDict in placesDicts){
         [self savePlaceDict:placeDict];
     }
+    [AppSettings getInstance:self.context].didDataBeLoaded = [NSNumber numberWithBool:YES];
     [self saveManagedObjectContext];
     if(self.delegate) {
         [self.delegate initialDownloaderViewShouldBeDisappeared:self];
@@ -222,12 +223,12 @@
                                   latitude:latitude
                                 longtitude:longtitude
                                        MOC:self.context];
-    if(!photoUrlStr && ![photoUrlStr isEqualToString:@""]){
+    if(photoUrlStr && ![photoUrlStr isEqualToString:@""]){
         [Photo newPhotoWithUrl: photoUrlStr
                       forPlace: place
                            MOC: self.context];
     }
-    if( !cityName && ![cityName isEqualToString:@""]){
+    if( cityName && ![cityName isEqualToString:@""]){
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@",cityName];
         NSArray * filtered_cities = [cities filteredArrayUsingPredicate:predicate];
         if( filtered_cities.count > 0){

@@ -13,4 +13,7 @@
 // Creates new Place object with attributes
 + (Place *) newPlaceWithName:(NSString *) name description:(NSString *) description latitude:(NSNumber *) latitude longtitude:(NSNumber *) longtitude MOC:(NSManagedObjectContext *) context;
 
+// Creates and returns new NSFetchedResultsController with Places grouped by city.name
++ (NSFetchedResultsController *) newFetchedResultsControllerForMOC:(NSManagedObjectContext *) context;
+
 @end

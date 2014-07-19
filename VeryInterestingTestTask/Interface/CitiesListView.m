@@ -66,7 +66,14 @@
 }
 
 - (void) setFetchedResultsController{
-    
+    controller = [Place newFetchedResultsControllerForMOC:self.context];
+    controller.delegate = self;
+    NSError *error;
+    [controller performFetch:&error];
+    if( error ){
+        NSLog(@"Error while performing fetch: %@",error.localizedDescription);
+        controller = nil;
+    }
 }
 
 
@@ -80,6 +87,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"sections count; %d",controller.sections.count);
     if( !controller )
         return 0;
     else
@@ -113,6 +121,12 @@
     Place *place = [controller objectAtIndexPath:indexPath];
     cell.labelName.text = place.name;
 #warning fill setting image code
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier = @"CellPlace";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    return cell.frame.size.height;
 }
 
 
@@ -271,7 +285,9 @@
 #pragma mark InitialDownloaderViewDelegate
 
 - (void)initialDownloaderViewShouldBeDisappeared:(InitialDownloaderView *)view{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 @end

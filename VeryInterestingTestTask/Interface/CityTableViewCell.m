@@ -21,7 +21,7 @@
         [_city removeObserver:self forKeyPath:@"name"];
     }
     _city = city;
-    [city addObserver:self forKeyPath:@"sectionHeader" options:NSKeyValueObservingOptionInitial context:nil];
+    [city addObserver:self forKeyPath:@"sectionHidden" options:NSKeyValueObservingOptionInitial context:nil];
     [city addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionInitial context:nil];
 }
 
@@ -30,6 +30,7 @@
         [self.city removeObserver:self forKeyPath:@"sectionHidden"];
         [self.city removeObserver:self forKeyPath:@"name"];
     }
+    NSLog(@"dealloc");
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
