@@ -13,9 +13,10 @@
 #import "Place+PlaceCategory.h"
 #import "AppSettings+AppSettingsCategory.h"
 #import "AppDelegate.h"
+#import "InitialDownloaderView.h"
 
 @interface CitiesListView ()
-<NSFetchedResultsControllerDelegate>
+<NSFetchedResultsControllerDelegate, CityTableViewCellDelegate, InitialDownloaderViewDelegate>
 {
     NSFetchedResultsController *controller;
 }
@@ -28,6 +29,8 @@
 @implementation CitiesListView
 @synthesize appSettings = _appSettings;
 @synthesize context = _context;
+
+#pragma mark initialization and basic functions
 
 - (NSManagedObjectContext *) getContext{
     if ( _context != nil )
@@ -57,7 +60,10 @@
 }
 
 - (void) showInitialDownloaderView{
-    
+    InitialDownloaderView *view = [self.storyboard instantiateViewControllerWithIdentifier:@"InitialDownloaderView"];
+    view.delegate = self;
+    view.context = self.context;
+    [self presentViewController: view animated: YES completion:nil];
 }
 
 - (void) setFetchedResultsController{
@@ -116,6 +122,26 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    Place *place = [controller objectAtIndexPath:indexPath];
+    City *city = place.city;
+    
+    static NSString *cellIdentifier = @"CellCity";
+    CityTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cell.city = city;
+    cell.delegate = self;
+    
+    return cell.contentView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    static NSString *cellIdentifier = @"CellCity";
+    CityTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    return cell.contentView.frame.size.height;
 }
 
 
@@ -205,6 +231,48 @@
         default:
             break;
     }
+}
+
+#pragma mark CityTableViewCellDelegate
+
+- (void)didTouchCityTableViewCell:(CityTableViewCell *)cityTableViewCell{
+    
+    NSMutableArray *sections = [controller.sections mutableCopy];
+    //NSDictionary *bindings = [NSDictionary dictionaryWithObject:cityTableViewCell.city.name forKey:@"EXPECTED_VALUE"];
+//    NSPredicate *predicate = [NSPredicate predicateWithBlock:
+//                              ^BOOL(id<NSFetchedResultsSectionInfo> sectionInfo, NSDictionary * bindings){
+//                                  NSString *name = [sectionInfo name];
+//                                  NSString *value = [bindings objectForKey:@"EXPECTED_VALUE"];
+//                                  return [name isEqualToString:value];
+//                              }];
+    City *city = cityTableViewCell.city;
+    NSUInteger sectionIndex = [sections indexOfObjectPassingTest:^BOOL(id<NSFetchedResultsSectionInfo> sectionInfo, NSUInteger idx, BOOL *stop) {
+        NSString *name = [sectionInfo name];
+        BOOL answer = [name isEqualToString:city.name];
+        stop = &answer;
+        return answer;
+    }];
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+    Boolean hidden = !city.sectionHidden.boolValue;
+    city.sectionHidden = [NSNumber numberWithBool: hidden];
+
+    NSMutableArray *indexPathes = [NSMutableArray arrayWithCapacity:[sectionInfo numberOfObjects]];
+    for(int i=0;i<[sectionInfo numberOfObjects];i++){
+        [indexPathes addObject:[NSIndexPath indexPathForRow:i inSection:sectionIndex]];
+    }
+    if(hidden == NO){
+        [self.tableView insertRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
+    }
+    else {
+        [self.tableView deleteRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
+    }
+}
+
+#pragma mark InitialDownloaderViewDelegate
+
+- (void)initialDownloaderViewShouldBeDisappeared:(InitialDownloaderView *)view{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

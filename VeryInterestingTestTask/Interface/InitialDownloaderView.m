@@ -9,19 +9,17 @@
 #import "InitialDownloaderView.h"
 
 @interface InitialDownloaderView ()
+<NSURLSessionDownloadDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate>
 
 @end
 
 @implementation InitialDownloaderView
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize delegate;
+@synthesize context;
+@synthesize progressView;
+
+#pragma mark Initialization and Basic functions
 
 - (void)viewDidLoad
 {
@@ -35,15 +33,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)btnStopDownloadingClicked:(id)sender {
 }
-*/
+
+#pragma mark NSURLSession
+
+- (NSURLSession *) backgroundSession{
+    static NSURLSession *session = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfiguration:@"ru.bva.VeryInterestingTestTask.backgroundSessoinForInitialDownloading"];
+        config.timeoutIntervalForRequest = 20;
+        config.timeoutIntervalForResource = 20;
+        session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+    });
+    return session;
+}
+
 
 @end

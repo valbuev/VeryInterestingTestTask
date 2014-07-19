@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@class InitialDownloaderView;
+@protocol InitialDownloaderViewDelegate
+
+- (void)  initialDownloaderViewShouldBeDisappeared:(InitialDownloaderView *) view;
+
+@end
+
 @interface InitialDownloaderView : UIViewController
+
+
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+
+@property (nonatomic,retain) NSManagedObjectContext *context;
+@property (nonatomic, weak) id <InitialDownloaderViewDelegate> delegate;
+
+
+- (IBAction)btnStopDownloadingClicked:(id)sender;
 
 @end

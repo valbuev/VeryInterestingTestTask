@@ -37,6 +37,9 @@
                                 <state key="normal" title="Stop downloading">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnStopDownloadingClicked:" destination="GB0-56-4ru" eventType="touchUpInside" id="Rwi-gc-ZqQ"/>
+                                </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EOO-2q-hSa">
                                 <rect key="frame" x="366" y="466" width="37" height="37"/>
@@ -63,6 +66,9 @@
                             <constraint firstAttribute="centerX" secondItem="z4w-73-QHG" secondAttribute="centerX" id="p91-2s-WHn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="progressView" destination="6Gw-xo-BFf" id="qju-AH-ubi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1EY-QG-Va3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
