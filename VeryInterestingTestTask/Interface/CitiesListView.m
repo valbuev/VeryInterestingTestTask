@@ -32,15 +32,14 @@
 
 #pragma mark initialization and basic functions
 
-- (NSManagedObjectContext *) getContext{
+- (NSManagedObjectContext *) context{
     if ( _context != nil )
         return _context;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     _context = appDelegate.managedObjectContext;
     return _context;
 }
-
-- (AppSettings *) getAppSettings{
+- (AppSettings *) appSettings{
     if(_appSettings != nil)
         return _appSettings;
     _appSettings = [AppSettings getInstance:self.context];
@@ -63,7 +62,7 @@
     InitialDownloaderView *view = [self.storyboard instantiateViewControllerWithIdentifier:@"InitialDownloaderView"];
     view.delegate = self;
     view.context = self.context;
-    [self presentViewController: view animated: YES completion:nil];
+    [self presentViewController: view animated: NO completion:nil];
 }
 
 - (void) setFetchedResultsController{

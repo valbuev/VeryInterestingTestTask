@@ -10,4 +10,7 @@
 
 @interface City (CityCategory)
 
+// Creates new object of City class with nested name
++ (City *) newCityWithName:(NSString *) name MOC:(NSManagedObjectContext *) context;
+
 @end

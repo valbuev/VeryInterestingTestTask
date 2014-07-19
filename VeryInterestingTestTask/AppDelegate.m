@@ -102,11 +102,34 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier
+  completionHandler:(void (^)())completionHandler {
+    self.backgroundSessionCompletionHandler = completionHandler;
+    
+    //add notification
+    [self presentNotification];
+}
+
+-(void)presentNotification{
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = @"Downloading completed!";
+    localNotification.alertAction = @"Downloading completed!";
+    
+    //On sound
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    
+    //increase the badge number of application plus 1
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 }
 
 @end

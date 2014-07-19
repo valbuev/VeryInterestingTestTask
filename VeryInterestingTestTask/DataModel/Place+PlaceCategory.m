@@ -10,4 +10,21 @@
 
 @implementation Place (PlaceCategory)
 
+// Creates new Place object with attributes
++ (Place *) newPlaceWithName:(NSString *) name description:(NSString *) description latitude:(NSNumber *) latitude longtitude:(NSNumber *) longtitude MOC:(NSManagedObjectContext *) context{
+    
+    Place *place;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+    place = [[Place alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    place.name = [name copy];
+    if(description)
+        place.placeDescription = [description copy];
+    else
+        place.placeDescription = @"";
+    place.latitude = [latitude copy];
+    place.longtitude = [longtitude copy];
+    
+    return place;
+}
+
 @end

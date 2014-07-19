@@ -17,6 +17,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+// For background downloading
+@property (copy) void (^backgroundSessionCompletionHandler)();
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
