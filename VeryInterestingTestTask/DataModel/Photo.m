@@ -15,5 +15,6 @@
 @dynamic url;
 @dynamic filePath;
 @dynamic place;
+@dynamic thumbnail_filePath;
 
 @end

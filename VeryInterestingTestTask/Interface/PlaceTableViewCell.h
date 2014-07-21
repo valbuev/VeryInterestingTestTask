@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class Place;
+@class Place, Photo;
 
 @interface PlaceTableViewCell : UITableViewCell
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (nonatomic, retain) Photo *photo;
 
 @end

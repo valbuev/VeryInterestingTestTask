@@ -9,7 +9,7 @@
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="trumbnail_filePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail_filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="photos" inverseEntity="Place" syncable="YES"/>
     </entity>
@@ -24,7 +24,7 @@
     <elements>
         <element name="AppSettings" positionX="-486" positionY="-142" width="128" height="58"/>
         <element name="City" positionX="-488" positionY="-0" width="128" height="75"/>
-        <element name="Photo" positionX="-108" positionY="-0" width="128" height="103"/>
+        <element name="Photo" positionX="-108" positionY="-0" width="128" height="105"/>
         <element name="Place" positionX="-299" positionY="-45" width="128" height="133"/>
     </elements>
 </model>

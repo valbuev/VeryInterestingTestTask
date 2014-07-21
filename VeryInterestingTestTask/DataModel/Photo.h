@@ -16,5 +16,6 @@
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) NSString * filePath;
 @property (nonatomic, retain) Place *place;
+@property (nonatomic, retain) NSString * thumbnail_filePath;
 
 @end

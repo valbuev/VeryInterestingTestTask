@@ -15,6 +15,7 @@
 @synthesize labelCityName;
 @synthesize  imageViewHiddenIndicator;
 
+
 - (void)setIsSectionHidden:(Boolean)isSectionHidden{
     _isSectionHidden = isSectionHidden;
     if(isSectionHidden == YES){
