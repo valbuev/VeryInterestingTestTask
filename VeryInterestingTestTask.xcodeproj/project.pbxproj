@@ -12,7 +12,6 @@
 		A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B65FE19797EA300CBCEE3 /* Place+PlaceCategory.m */; };
 		A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */; };
 		A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B660719797EFE00CBCEE3 /* City+CityCategory.m */; };
-		A31B660B1979878400CBCEE3 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31B660A1979878400CBCEE3 /* no_photo.jpg */; };
 		A31B66151979973400CBCEE3 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66141979973400CBCEE3 /* City.m */; };
 		A31B661819799C0800CBCEE3 /* InitialDownloaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661719799C0800CBCEE3 /* InitialDownloaderView.m */; };
 		A31B661B19799C8000CBCEE3 /* CitiesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661A19799C8000CBCEE3 /* CitiesListView.m */; };
@@ -36,6 +35,9 @@
 		A344D3E61932D3F7007C6D72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3E51932D3F7007C6D72 /* CoreData.framework */; };
 		A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */; };
 		A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A344D3EA1932DF44007C6D72 /* Localizable.strings */; };
+		A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D413197CC16700C980F1 /* no_photo.jpg */; };
+		A3E2D417197CDAE800C980F1 /* disclosure_indicator_down.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */; };
+		A3E2D418197CDAE800C980F1 /* disclosure_indicator_right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */; };
 		A3F30C6C197A5FB20004999E /* CitySectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */; };
 		A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */; };
 /* End PBXBuildFile section */
@@ -61,7 +63,6 @@
 		A31B660119797EBF00CBCEE3 /* Photo+PhotoCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+PhotoCategory.m"; path = "DataModel/Photo+PhotoCategory.m"; sourceTree = "<group>"; };
 		A31B660619797EFE00CBCEE3 /* City+CityCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "City+CityCategory.h"; path = "DataModel/City+CityCategory.h"; sourceTree = "<group>"; };
 		A31B660719797EFE00CBCEE3 /* City+CityCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "City+CityCategory.m"; path = "DataModel/City+CityCategory.m"; sourceTree = "<group>"; };
-		A31B660A1979878400CBCEE3 /* no_photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = no_photo.jpg; path = ../../../../../Users/bva/Downloads/no_photo.jpg; sourceTree = "<group>"; };
 		A31B66131979973400CBCEE3 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = City.h; path = DataModel/City.h; sourceTree = "<group>"; };
 		A31B66141979973400CBCEE3 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = City.m; path = DataModel/City.m; sourceTree = "<group>"; };
 		A31B661619799C0800CBCEE3 /* InitialDownloaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitialDownloaderView.h; path = Interface/InitialDownloaderView.h; sourceTree = "<group>"; };
@@ -95,6 +96,9 @@
 		A344D3E51932D3F7007C6D72 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A344D3E81932D69A007C6D72 /* PlacesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlacesModel.xcdatamodel; sourceTree = "<group>"; };
 		A344D3EA1932DF44007C6D72 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A3E2D413197CC16700C980F1 /* no_photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_photo.jpg; sourceTree = "<group>"; };
+		A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disclosure_indicator_down.jpg; sourceTree = "<group>"; };
+		A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disclosure_indicator_right.jpg; sourceTree = "<group>"; };
 		A3F30C6A197A5FB20004999E /* CitySectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CitySectionHeaderView.h; path = Interface/CitySectionHeaderView.h; sourceTree = "<group>"; };
 		A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CitySectionHeaderView.m; path = Interface/CitySectionHeaderView.m; sourceTree = "<group>"; };
 		A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySectionHeaderView_iPad.xib; sourceTree = "<group>"; };
@@ -183,7 +187,9 @@
 		A31B66091979877100CBCEE3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A31B660A1979878400CBCEE3 /* no_photo.jpg */,
+				A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */,
+				A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */,
+				A3E2D413197CC16700C980F1 /* no_photo.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -390,13 +396,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A31B660B1979878400CBCEE3 /* no_photo.jpg in Resources */,
+				A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */,
 				A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */,
 				A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */,
 				A344D3C41932D391007C6D72 /* Main_iPad.storyboard in Resources */,
+				A3E2D417197CDAE800C980F1 /* disclosure_indicator_down.jpg in Resources */,
 				A344D3C91932D391007C6D72 /* Images.xcassets in Resources */,
 				A344D3C11932D391007C6D72 /* Main_iPhone.storyboard in Resources */,
 				A344D3B81932D391007C6D72 /* InfoPlist.strings in Resources */,
+				A3E2D418197CDAE800C980F1 /* disclosure_indicator_right.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,20 +11,29 @@
 @implementation CitySectionHeaderView
 @synthesize delegate;
 @synthesize sectionInfo;
-@synthesize isSectionHidden;
+@synthesize isSectionHidden = _isSectionHidden;
 @synthesize labelCityName;
 @synthesize  imageViewHiddenIndicator;
+
+- (void)setIsSectionHidden:(Boolean)isSectionHidden{
+    _isSectionHidden = isSectionHidden;
+    if(isSectionHidden == YES){
+        self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_right.jpg"];
+    }
+    else {
+        self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_down.jpg"];
+    }
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if(self){
-        self.isSectionHidden = NO;
     }
     return self;
 }
 
 - (void)awakeFromNib{
-    NSLog(@"awake from nib");
+    NSLog(@"CitySectionHeaderView awake from nib");
 }
 
 - (IBAction)btnToggleClicked:(id)sender {
@@ -35,7 +44,7 @@
 }
 
 -(void)dealloc{
-    NSLog(@"dealloc");
+    NSLog(@"CitySectionHeaderView dealloc");
 }
 
 

@@ -22,6 +22,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 <NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate>
 {
     NSFetchedResultsController *controller;
+    NSMutableArray *hiddenSections;
 }
 
 @property (nonatomic,retain) AppSettings *appSettings;
@@ -81,6 +82,13 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         NSLog(@"Error while performing fetch: %@",error.localizedDescription);
         controller = nil;
     }
+    else{
+        hiddenSections = [NSMutableArray array];
+        NSUInteger sectionsCount = controller.sections.count;
+        for ( NSUInteger i=0; i < sectionsCount; i++ ) {
+            [hiddenSections addObject:[NSNumber numberWithBool:NO]];
+        }
+    }
 }
 
 
@@ -94,7 +102,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"sections count; %d",controller.sections.count);
+    //NSLog(@"sections count; %d",controller.sections.count);
     if( !controller )
         return 0;
     else
@@ -103,8 +111,9 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    CitySectionHeaderView *view = (CitySectionHeaderView *) [self.tableView headerViewForSection:section];
-    if( view.isSectionHidden == YES )
+    //CitySectionHeaderView *view = (CitySectionHeaderView *) [self.tableView headerViewForSection:section];
+    NSNumber *isSectionHidden = [hiddenSections objectAtIndex:section];
+    if( isSectionHidden.boolValue == YES )
         return 0;
     else{
         id <NSFetchedResultsSectionInfo> sectionInfo = [controller.sections objectAtIndex:section];
@@ -137,12 +146,17 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    id <NSFetchedResultsSectionInfo> sectioninfo = [controller.sections objectAtIndex:section];
     CitySectionHeaderView *view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:SectionHeaderViewIdentifier];
-    
+    [self configureHeaderView:view sectionIndex:section];
+    return view;
+}
+
+- (void) configureHeaderView:(CitySectionHeaderView *) view sectionIndex:(NSUInteger ) sectionIndex{
+    id <NSFetchedResultsSectionInfo> sectioninfo = [controller.sections objectAtIndex:sectionIndex];
     view.delegate = self;
     view.sectionInfo = sectioninfo;
+    NSNumber *isSectionHidden = [hiddenSections objectAtIndex:sectionIndex];
+    view.isSectionHidden = isSectionHidden.boolValue;
     NSString *name = [sectioninfo name];
     if(!name || [name isEqualToString:@""]){
         view.labelCityName.text = @"Without city";
@@ -150,8 +164,6 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     else {
         view.labelCityName.text = [sectioninfo name];
     }
-    
-    return view;
 }
 
 
@@ -206,17 +218,35 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 }
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    BOOL isSectionHidden = [[hiddenSections objectAtIndex:indexPath.section] boolValue];
+    BOOL isNewSectionHidden = [[hiddenSections objectAtIndex:newIndexPath.section] boolValue];
     switch (type) {
         case NSFetchedResultsChangeDelete:
+            if(isSectionHidden == NO){
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
             break;
             
         case NSFetchedResultsChangeInsert:
+            if(isSectionHidden == NO){
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
             break;
             
-        case NSFetchedResultsChangeMove:
+        case NSFetchedResultsChangeMove:{
+            if(isSectionHidden == NO){
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            if(isNewSectionHidden == NO){
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }
             break;
             
-        case NSFetchedResultsChangeUpdate:
+        case NSFetchedResultsChangeUpdate:{
+            PlaceTableViewCell *cell = (PlaceTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+            [self configureCell:cell forIndexPath:indexPath];
+        }
             break;
             
         default:
@@ -226,16 +256,25 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     switch (type) {
-        case NSFetchedResultsChangeDelete:
+        case NSFetchedResultsChangeDelete:{
+            [hiddenSections removeObjectAtIndex:sectionIndex];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
             break;
             
-        case NSFetchedResultsChangeInsert:
+        case NSFetchedResultsChangeInsert:{
+            [hiddenSections insertObject:[NSNumber numberWithBool:NO] atIndex:sectionIndex];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
             break;
             
         case NSFetchedResultsChangeMove:
             break;
             
-        case NSFetchedResultsChangeUpdate:
+        case NSFetchedResultsChangeUpdate:{
+            CitySectionHeaderView *view = (CitySectionHeaderView *) [self.tableView headerViewForSection:sectionIndex];
+            [self configureHeaderView:view sectionIndex:sectionIndex];
+        }
             break;
             
         default:
@@ -248,6 +287,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 - (void)citySectionHeaderView:(CitySectionHeaderView *)view didHidden:(Boolean)isHidden{
     id <NSFetchedResultsSectionInfo> sectionInfo = view.sectionInfo;
     NSUInteger sectionIndex = [controller.sections indexOfObject:sectionInfo];
+    [hiddenSections setObject:[NSNumber numberWithBool:isHidden] atIndexedSubscript:sectionIndex];
     NSMutableArray *indexPathes = [NSMutableArray arrayWithCapacity:[sectionInfo numberOfObjects]];
     for(int i=0;i<[sectionInfo numberOfObjects];i++){
         [indexPathes addObject:[NSIndexPath indexPathForRow:i inSection:sectionIndex]];
@@ -261,39 +301,6 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     }
     [self.tableView endUpdates];
 }
-/*- (void)didTouchCityTableViewCell:(CityTableViewCell *)cityTableViewCell{
-    
-    NSMutableArray *sections = [controller.sections mutableCopy];
-    //NSDictionary *bindings = [NSDictionary dictionaryWithObject:cityTableViewCell.city.name forKey:@"EXPECTED_VALUE"];
-//    NSPredicate *predicate = [NSPredicate predicateWithBlock:
-//                              ^BOOL(id<NSFetchedResultsSectionInfo> sectionInfo, NSDictionary * bindings){
-//                                  NSString *name = [sectionInfo name];
-//                                  NSString *value = [bindings objectForKey:@"EXPECTED_VALUE"];
-//                                  return [name isEqualToString:value];
-//                              }];
-    City *city = cityTableViewCell.city;
-    NSUInteger sectionIndex = [sections indexOfObjectPassingTest:^BOOL(id<NSFetchedResultsSectionInfo> sectionInfo, NSUInteger idx, BOOL *stop) {
-        NSString *name = [sectionInfo name];
-        BOOL answer = [name isEqualToString:city.name];
-        stop = &answer;
-        return answer;
-    }];
-    
-    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
-    Boolean hidden = !city.sectionHidden.boolValue;
-    city.sectionHidden = [NSNumber numberWithBool: hidden];
-
-    NSMutableArray *indexPathes = [NSMutableArray arrayWithCapacity:[sectionInfo numberOfObjects]];
-    for(int i=0;i<[sectionInfo numberOfObjects];i++){
-        [indexPathes addObject:[NSIndexPath indexPathForRow:i inSection:sectionIndex]];
-    }
-    if(hidden == NO){
-        [self.tableView insertRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
-    }
-    else {
-        [self.tableView deleteRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
-    }
-}*/
 
 #pragma mark InitialDownloaderViewDelegate
 

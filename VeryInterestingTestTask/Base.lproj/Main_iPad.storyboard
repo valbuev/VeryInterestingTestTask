@@ -188,7 +188,7 @@
                                             <rect key="frame" x="8" y="2" width="146" height="146"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="146" id="lOv-d3-wnB"/>
+                                                <constraint firstAttribute="width" constant="146" id="PLR-GV-JHP"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVs-pI-ql8">
@@ -199,13 +199,13 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="xVs-pI-ql8" secondAttribute="bottom" id="08u-LC-SD8"/>
-                                        <constraint firstAttribute="trailing" secondItem="xVs-pI-ql8" secondAttribute="trailing" id="9eD-Es-byV"/>
-                                        <constraint firstItem="N6K-6K-E3R" firstAttribute="top" secondItem="z1f-eU-JDR" secondAttribute="top" constant="2" id="HiN-tQ-Mss"/>
-                                        <constraint firstItem="xVs-pI-ql8" firstAttribute="leading" secondItem="N6K-6K-E3R" secondAttribute="trailing" constant="8" id="Ja2-cY-nB0"/>
-                                        <constraint firstItem="N6K-6K-E3R" firstAttribute="leading" secondItem="z1f-eU-JDR" secondAttribute="leading" constant="8" id="KR7-lU-DZl"/>
-                                        <constraint firstAttribute="bottom" secondItem="N6K-6K-E3R" secondAttribute="bottom" constant="2" id="YpO-Bh-8up"/>
-                                        <constraint firstItem="xVs-pI-ql8" firstAttribute="top" secondItem="z1f-eU-JDR" secondAttribute="top" id="kxC-nN-vaU"/>
+                                        <constraint firstAttribute="trailing" secondItem="xVs-pI-ql8" secondAttribute="trailing" id="2MW-6Z-K9o"/>
+                                        <constraint firstAttribute="bottom" secondItem="N6K-6K-E3R" secondAttribute="bottom" constant="2" id="EC2-jX-US4"/>
+                                        <constraint firstItem="N6K-6K-E3R" firstAttribute="top" secondItem="z1f-eU-JDR" secondAttribute="top" constant="2" id="Efr-KV-MVd"/>
+                                        <constraint firstItem="xVs-pI-ql8" firstAttribute="top" secondItem="z1f-eU-JDR" secondAttribute="top" id="Ggb-Mu-FXs"/>
+                                        <constraint firstItem="xVs-pI-ql8" firstAttribute="leading" secondItem="N6K-6K-E3R" secondAttribute="trailing" constant="8" id="RG2-Ek-Xhz"/>
+                                        <constraint firstAttribute="bottom" secondItem="xVs-pI-ql8" secondAttribute="bottom" id="ahR-NB-dkv"/>
+                                        <constraint firstItem="N6K-6K-E3R" firstAttribute="leading" secondItem="z1f-eU-JDR" secondAttribute="leading" constant="8" id="boT-AE-1MF"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -253,7 +253,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="no_photo.jpg" width="121" height="150"/>
+        <image name="no_photo.jpg" width="368" height="458"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
