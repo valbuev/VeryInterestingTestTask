@@ -192,6 +192,7 @@
         [self savePlaceDict:placeDict];
     }
     [AppSettings getInstance:self.context].didDataBeLoaded = [NSNumber numberWithBool:YES];
+    
     [self saveManagedObjectContext];
     if(self.delegate) {
         [self.delegate initialDownloaderViewShouldBeDisappeared:self];

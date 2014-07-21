@@ -9,14 +9,17 @@
 #import "CitiesListView.h"
 #import "City+CityCategory.h"
 #import "PlaceTableViewCell.h"
-#import "CityTableViewCell.h"
 #import "Place+PlaceCategory.h"
 #import "AppSettings+AppSettingsCategory.h"
 #import "AppDelegate.h"
 #import "InitialDownloaderView.h"
+#import "CitySectionHeaderView.h"
+
+static NSString *SectionHeaderViewIdentifier = @"SectionHeaderViewIdentifier";
+static NSString *PlaceCellIdentifier = @"CellPlace";
 
 @interface CitiesListView ()
-<NSFetchedResultsControllerDelegate, CityTableViewCellDelegate, InitialDownloaderViewDelegate>
+<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate>
 {
     NSFetchedResultsController *controller;
 }
@@ -50,6 +53,10 @@
 {
     [super viewDidLoad];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"CitySectionHeaderView_iPad" bundle:nil] forHeaderFooterViewReuseIdentifier:SectionHeaderViewIdentifier];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:PlaceCellIdentifier];
+    [self.tableView setRowHeight:cell.frame.size.height];
+    [self.tableView setSectionHeaderHeight:44];
     if ( self.appSettings.didDataBeLoaded.boolValue == NO ){
         [self showInitialDownloaderView];
     }
@@ -96,9 +103,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    Place *place = [controller objectAtIndexPath:indexPath];
-    if( place.city.sectionHidden.boolValue == YES )
+    CitySectionHeaderView *view = (CitySectionHeaderView *) [self.tableView headerViewForSection:section];
+    if( view.isSectionHidden == YES )
         return 0;
     else{
         id <NSFetchedResultsSectionInfo> sectionInfo = [controller.sections objectAtIndex:section];
@@ -109,8 +115,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"CellPlace";
-    PlaceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    PlaceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PlaceCellIdentifier forIndexPath:indexPath];
     
     [self configureCell:cell forIndexPath:indexPath];
     
@@ -123,12 +128,6 @@
 #warning fill setting image code
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"CellPlace";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    return cell.frame.size.height;
-}
-
 
 
 // Override to support conditional editing of the table view.
@@ -139,22 +138,20 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    Place *place = [controller objectAtIndexPath:indexPath];
-    City *city = place.city;
+    id <NSFetchedResultsSectionInfo> sectioninfo = [controller.sections objectAtIndex:section];
+    CitySectionHeaderView *view = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:SectionHeaderViewIdentifier];
     
-    static NSString *cellIdentifier = @"CellCity";
-    CityTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    cell.city = city;
-    cell.delegate = self;
+    view.delegate = self;
+    view.sectionInfo = sectioninfo;
+    NSString *name = [sectioninfo name];
+    if(!name || [name isEqualToString:@""]){
+        view.labelCityName.text = @"Without city";
+    }
+    else {
+        view.labelCityName.text = [sectioninfo name];
+    }
     
-    return cell.contentView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    static NSString *cellIdentifier = @"CellCity";
-    CityTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    return cell.contentView.frame.size.height;
+    return view;
 }
 
 
@@ -246,9 +243,25 @@
     }
 }
 
-#pragma mark CityTableViewCellDelegate
+#pragma mark CitySectionHeaderViewDelegate
 
-- (void)didTouchCityTableViewCell:(CityTableViewCell *)cityTableViewCell{
+- (void)citySectionHeaderView:(CitySectionHeaderView *)view didHidden:(Boolean)isHidden{
+    id <NSFetchedResultsSectionInfo> sectionInfo = view.sectionInfo;
+    NSUInteger sectionIndex = [controller.sections indexOfObject:sectionInfo];
+    NSMutableArray *indexPathes = [NSMutableArray arrayWithCapacity:[sectionInfo numberOfObjects]];
+    for(int i=0;i<[sectionInfo numberOfObjects];i++){
+        [indexPathes addObject:[NSIndexPath indexPathForRow:i inSection:sectionIndex]];
+    }
+    [self.tableView beginUpdates];
+    if(isHidden == NO){
+        [self.tableView insertRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
+    }
+    else {
+        [self.tableView deleteRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
+    }
+    [self.tableView endUpdates];
+}
+/*- (void)didTouchCityTableViewCell:(CityTableViewCell *)cityTableViewCell{
     
     NSMutableArray *sections = [controller.sections mutableCopy];
     //NSDictionary *bindings = [NSDictionary dictionaryWithObject:cityTableViewCell.city.name forKey:@"EXPECTED_VALUE"];
@@ -280,13 +293,14 @@
     else {
         [self.tableView deleteRowsAtIndexPaths:indexPathes withRowAnimation:UITableViewRowAnimationRight];
     }
-}
+}*/
 
 #pragma mark InitialDownloaderViewDelegate
 
 - (void)initialDownloaderViewShouldBeDisappeared:(InitialDownloaderView *)view{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self dismissViewControllerAnimated:YES completion:nil];
+        [self setFetchedResultsController];
     });
 }
 

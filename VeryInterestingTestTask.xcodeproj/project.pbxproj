@@ -16,7 +16,6 @@
 		A31B66151979973400CBCEE3 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66141979973400CBCEE3 /* City.m */; };
 		A31B661819799C0800CBCEE3 /* InitialDownloaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661719799C0800CBCEE3 /* InitialDownloaderView.m */; };
 		A31B661B19799C8000CBCEE3 /* CitiesListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B661A19799C8000CBCEE3 /* CitiesListView.m */; };
-		A31B662219799DAD00CBCEE3 /* CityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662119799DAD00CBCEE3 /* CityTableViewCell.m */; };
 		A31B662519799DC500CBCEE3 /* PlaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662419799DC500CBCEE3 /* PlaceTableViewCell.m */; };
 		A31B662B1979AE1100CBCEE3 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66281979AE1100CBCEE3 /* AppSettings.m */; };
 		A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */; };
@@ -37,6 +36,8 @@
 		A344D3E61932D3F7007C6D72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3E51932D3F7007C6D72 /* CoreData.framework */; };
 		A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */; };
 		A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A344D3EA1932DF44007C6D72 /* Localizable.strings */; };
+		A3F30C6C197A5FB20004999E /* CitySectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */; };
+		A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +68,6 @@
 		A31B661719799C0800CBCEE3 /* InitialDownloaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InitialDownloaderView.m; path = Interface/InitialDownloaderView.m; sourceTree = "<group>"; };
 		A31B661919799C8000CBCEE3 /* CitiesListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CitiesListView.h; path = Interface/CitiesListView.h; sourceTree = "<group>"; };
 		A31B661A19799C8000CBCEE3 /* CitiesListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CitiesListView.m; path = Interface/CitiesListView.m; sourceTree = "<group>"; };
-		A31B662019799DAD00CBCEE3 /* CityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityTableViewCell.h; path = Interface/CityTableViewCell.h; sourceTree = "<group>"; };
-		A31B662119799DAD00CBCEE3 /* CityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityTableViewCell.m; path = Interface/CityTableViewCell.m; sourceTree = "<group>"; };
 		A31B662319799DC500CBCEE3 /* PlaceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceTableViewCell.h; path = Interface/PlaceTableViewCell.h; sourceTree = "<group>"; };
 		A31B662419799DC500CBCEE3 /* PlaceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceTableViewCell.m; path = Interface/PlaceTableViewCell.m; sourceTree = "<group>"; };
 		A31B66271979AE1100CBCEE3 /* AppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppSettings.h; path = DataModel/AppSettings.h; sourceTree = "<group>"; };
@@ -96,6 +95,9 @@
 		A344D3E51932D3F7007C6D72 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A344D3E81932D69A007C6D72 /* PlacesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlacesModel.xcdatamodel; sourceTree = "<group>"; };
 		A344D3EA1932DF44007C6D72 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A3F30C6A197A5FB20004999E /* CitySectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CitySectionHeaderView.h; path = Interface/CitySectionHeaderView.h; sourceTree = "<group>"; };
+		A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CitySectionHeaderView.m; path = Interface/CitySectionHeaderView.m; sourceTree = "<group>"; };
+		A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySectionHeaderView_iPad.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +194,7 @@
 				A31B661919799C8000CBCEE3 /* CitiesListView.h */,
 				A31B661A19799C8000CBCEE3 /* CitiesListView.m */,
 				A31B661F19799D4000CBCEE3 /* PlaceTableViewCell */,
-				A31B661E19799D0E00CBCEE3 /* CityTableViewCell */,
+				A31B661E19799D0E00CBCEE3 /* CitySectionHeaderView */,
 				A31B661D19799CF700CBCEE3 /* InitialDownloaderView */,
 			);
 			name = CitiesListView;
@@ -207,13 +209,14 @@
 			name = InitialDownloaderView;
 			sourceTree = "<group>";
 		};
-		A31B661E19799D0E00CBCEE3 /* CityTableViewCell */ = {
+		A31B661E19799D0E00CBCEE3 /* CitySectionHeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				A31B662019799DAD00CBCEE3 /* CityTableViewCell.h */,
-				A31B662119799DAD00CBCEE3 /* CityTableViewCell.m */,
+				A3F30C6A197A5FB20004999E /* CitySectionHeaderView.h */,
+				A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */,
+				A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */,
 			);
-			name = CityTableViewCell;
+			name = CitySectionHeaderView;
 			sourceTree = "<group>";
 		};
 		A31B661F19799D4000CBCEE3 /* PlaceTableViewCell */ = {
@@ -388,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A31B660B1979878400CBCEE3 /* no_photo.jpg in Resources */,
+				A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */,
 				A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */,
 				A344D3C41932D391007C6D72 /* Main_iPad.storyboard in Resources */,
 				A344D3C91932D391007C6D72 /* Images.xcassets in Resources */,
@@ -411,9 +415,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A31B662219799DAD00CBCEE3 /* CityTableViewCell.m in Sources */,
 				A31B661B19799C8000CBCEE3 /* CitiesListView.m in Sources */,
 				A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */,
+				A3F30C6C197A5FB20004999E /* CitySectionHeaderView.m in Sources */,
 				A31B662519799DC500CBCEE3 /* PlaceTableViewCell.m in Sources */,
 				A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */,
 				A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */,

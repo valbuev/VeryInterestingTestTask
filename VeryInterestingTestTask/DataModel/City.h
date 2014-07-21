@@ -14,7 +14,6 @@
 @interface City : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * sectionHidden;
 @property (nonatomic, retain) NSSet *places;
 @end
 

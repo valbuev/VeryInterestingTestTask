@@ -5,7 +5,6 @@
     </entity>
     <entity name="City" representedClassName="City" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="sectionHidden" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <relationship name="places" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Place" inverseName="city" inverseEntity="Place" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
@@ -24,7 +23,7 @@
     </entity>
     <elements>
         <element name="AppSettings" positionX="-486" positionY="-142" width="128" height="58"/>
-        <element name="City" positionX="-488" positionY="-0" width="128" height="88"/>
+        <element name="City" positionX="-488" positionY="-0" width="128" height="75"/>
         <element name="Photo" positionX="-108" positionY="-0" width="128" height="103"/>
         <element name="Place" positionX="-299" positionY="-45" width="128" height="133"/>
     </elements>
