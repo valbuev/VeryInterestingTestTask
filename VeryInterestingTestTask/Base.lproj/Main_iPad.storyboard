@@ -77,7 +77,7 @@
         <!--Filter-->
         <scene sceneID="u2Y-pH-OPo">
             <objects>
-                <tableViewController id="52K-ye-GgO" userLabel="Filter" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FilterPopupView" id="52K-ye-GgO" userLabel="Filter" customClass="FilterPopupView" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TMD-yS-D6k">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="198"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,14 +220,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Cities" id="N3E-16-2iC">
+                        <barButtonItem key="leftBarButtonItem" title="New" id="Jji-j9-RaB"/>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="Wkc-TP-IVc">
                             <connections>
-                                <segue destination="52K-ye-GgO" kind="popover" popoverAnchorBarButtonItem="Wkc-TP-IVc" id="gKH-7Q-dBh">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <action selector="filterBarButtonClicked:" destination="nNG-p1-8UI" id="yYp-W9-jtR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="filterBarButton" destination="Wkc-TP-IVc" id="pmK-WU-OCh"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eql-oE-v1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

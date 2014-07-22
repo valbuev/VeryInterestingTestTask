@@ -15,29 +15,36 @@
 #import "InitialDownloaderView.h"
 #import "CitySectionHeaderView.h"
 #import "Photo+PhotoCategory.h"
+#import "FilterPopupView.h"
 
 static NSString *SectionHeaderViewIdentifier = @"SectionHeaderViewIdentifier";
 static NSString *PlaceCellIdentifier = @"CellPlace";
 
 @interface CitiesListView ()
-<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate>
+<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate, FilterPopupViewDelegate>
 {
     NSFetchedResultsController *controller;
     NSMutableArray *hiddenSections;
     
     NSMutableArray *downloadPhotos;
+    
+    LocationFilterRadius locationFilterRadius;
+    UIPopoverController *filterViewPopoverController;
 }
 
 @property (nonatomic,retain) AppSettings *appSettings;
 @property  (nonatomic, retain) NSManagedObjectContext *context;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *filterBarButton;
 
 @end
 
 @implementation CitiesListView
 @synthesize appSettings = _appSettings;
 @synthesize context = _context;
+@synthesize filterBarButton;
 
 #pragma mark initialization and basic functions
+
 
 - (void)saveContext {
     NSError *error = nil;
@@ -69,6 +76,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 {
     [super viewDidLoad];
     
+    locationFilterRadius = LocationFilterRadiusNone;
     downloadPhotos = [NSMutableArray array];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"CitySectionHeaderView_iPad" bundle:nil] forHeaderFooterViewReuseIdentifier:SectionHeaderViewIdentifier];
@@ -214,11 +222,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
             return _stop;
         }];
         if(searchResult != NSNotFound){
-#warning
-            //NSURLSessionDownloadTask *task = [downloadTasks objectAtIndex:searchResult];
-            //[downloadPhotos removeObjectAtIndex:searchResult];
-            //[downloadTasks removeObjectAtIndex:searchResult];
-            //[task cancel];
+            [downloadPhotos removeObjectAtIndex:searchResult];
         }
         [self.context deleteObject:place];
         [self saveContext];
@@ -227,34 +231,57 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     }   
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if( [[segue identifier] isEqualToString:@"FilterView"]){
+        
+    }
 }
-*/
 
-#pragma mark NSFetchResultsControllerDelegate
+- (IBAction)filterBarButtonClicked:(id)sender {
+    FilterPopupView *filterPopupView = [self.storyboard instantiateViewControllerWithIdentifier:@"FilterPopupView"];
+    filterPopupView.delegate = self;
+    filterPopupView.locationFilterRadius = locationFilterRadius;
+    filterViewPopoverController = [[UIPopoverController alloc] initWithContentViewController:filterPopupView];
+    [filterViewPopoverController presentPopoverFromBarButtonItem:self.filterBarButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
+}
+
+
+#pragma mark NSFetchResultsControllerDelegate ( + FilterPopupViewDelegate )
+
+- (void)setLocationFilterRadius:(LocationFilterRadius)_locationFilterRadius{
+    locationFilterRadius = _locationFilterRadius;
+    [filterViewPopoverController dismissPopoverAnimated:YES];
+    NSString *title;
+    switch (locationFilterRadius) {
+        case 0:
+            title = @"Filter";
+            break;
+            
+        case 1:
+            title = @"1 mile";
+            break;
+            
+        case 2:
+            title = @"10 miles";
+            break;
+            
+        case 3:
+            title = @"100 miles";
+            break;
+            
+        default:
+            break;
+    }
+    self.filterBarButton.title = title;
+}
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
@@ -377,10 +404,10 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     NSURL * url = [NSURL URLWithString:photo.url];
     if( !url ){
         url = [NSURL URLWithString:[photo.url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        NSLog(@"incorrect url? new url : %@",url);
+        //NSLog(@"incorrect url? new url : %@",url);
     }
     else {
-        NSLog(@"correct url: %@",url);
+        //NSLog(@"correct url: %@",url);
     }
     
     NSURLSession *session = [self getDownloadPhotoSession];
@@ -401,9 +428,8 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
                     NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
                     NSURL *documentsDirectory = [urls objectAtIndex:0];
                     
-                    //NSURL *originalUrl = [NSURL URLWithString:[url lastPathComponent]];
                     NSString *imageName = [url lastPathComponent];
-                    NSLog(@"imageName : %@",imageName);
+                    //NSLog(@"imageName : %@",imageName);
                     
                     if( ! ( !imageName || [imageName isEqualToString:@""] )  ){
                         NSURL *destinationUrl = [documentsDirectory URLByAppendingPathComponent:imageName];
@@ -411,25 +437,12 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
                         NSError *fileManagerError;
                         
                         [fileManager removeItemAtURL:destinationUrl error:NULL];
-                        
                         [fileManager copyItemAtURL:location toURL:destinationUrl error:&fileManagerError];
                         
                         if(fileManagerError == nil){
                             
-                            UIImage *originalImage = [UIImage imageWithContentsOfFile:destinationUrl.path];
-                            CGSize destinationSize = CGSizeMake(100, 100);
-                            UIGraphicsBeginImageContext(destinationSize);
-                            [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
-                            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-                            UIGraphicsEndImageContext();
-                            NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
-                            imageType = [imageType lowercaseString];
-                            if([imageType isEqualToString:@"jpg"]){
-                                [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailDestinationUrl.path atomically:YES];
-                            }
-                            else if ([imageType isEqualToString:@"png"]){
-                                [UIImagePNGRepresentation(newImage) writeToFile:thumbnailDestinationUrl.path atomically:YES];
-                            }
+                            [self saveThumbnailOfImage: imageName originalImagePath: destinationUrl.path
+                                         thumbnailPath: thumbnailDestinationUrl.path];
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 if( ![downloadPhotos containsObject:photo] )
@@ -450,6 +463,23 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
                     });
                     
                 }] resume];
+}
+
+- (void) saveThumbnailOfImage: (NSString *) imageName originalImagePath: (NSString *) imagePath thumbnailPath: (NSString *) thumbnailPath{
+    UIImage *originalImage = [UIImage imageWithContentsOfFile:imagePath];
+    CGSize destinationSize = CGSizeMake(100, 100);
+    UIGraphicsBeginImageContext(destinationSize);
+    [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
+    imageType = [imageType lowercaseString];
+    if([imageType isEqualToString:@"jpg"]){
+        [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailPath atomically:YES];
+    }
+    else if ([imageType isEqualToString:@"png"]){
+        [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:YES];
+    }
 }
 
 @end
