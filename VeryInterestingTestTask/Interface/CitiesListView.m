@@ -20,13 +20,12 @@ static NSString *SectionHeaderViewIdentifier = @"SectionHeaderViewIdentifier";
 static NSString *PlaceCellIdentifier = @"CellPlace";
 
 @interface CitiesListView ()
-<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate,NSURLSessionDownloadDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate>
+<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate>
 {
     NSFetchedResultsController *controller;
     NSMutableArray *hiddenSections;
     
     NSMutableArray *downloadPhotos;
-    NSMutableArray *downloadTasks;
 }
 
 @property (nonatomic,retain) AppSettings *appSettings;
@@ -71,7 +70,6 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     [super viewDidLoad];
     
     downloadPhotos = [NSMutableArray array];
-    downloadTasks = [NSMutableArray array];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"CitySectionHeaderView_iPad" bundle:nil] forHeaderFooterViewReuseIdentifier:SectionHeaderViewIdentifier];
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:PlaceCellIdentifier];
@@ -216,10 +214,11 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
             return _stop;
         }];
         if(searchResult != NSNotFound){
-            NSURLSessionDownloadTask *task = [downloadTasks objectAtIndex:searchResult];
-            [downloadPhotos removeObjectAtIndex:searchResult];
-            [downloadTasks removeObjectAtIndex:searchResult];
-            [task cancel];
+#warning
+            //NSURLSessionDownloadTask *task = [downloadTasks objectAtIndex:searchResult];
+            //[downloadPhotos removeObjectAtIndex:searchResult];
+            //[downloadTasks removeObjectAtIndex:searchResult];
+            //[task cancel];
         }
         [self.context deleteObject:place];
         [self saveContext];
@@ -361,128 +360,96 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 
 #pragma mark photo downloading
 
-/*- (void) stopDownloading{
-    [[self backgroundSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks){
-        for ( NSURLSessionDownloadTask *task in downloadTasks){
-            [task cancel];
-        }
-    }];
-}*/
-
-- (NSURLSession *) backgroundSession{
-    static NSURLSession *session = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfiguration:@"ru.bva.VeryInterestingTestTask.backgroundSessoinPhotoDownloading"];
-        config.HTTPMaximumConnectionsPerHost = 3;
-        config.timeoutIntervalForRequest = 30;
-        config.timeoutIntervalForResource = 60;
-        session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
-    });
+- (NSURLSession *) getDownloadPhotoSession{
+    static NSURLSession *session;
+    if( !session ){
+        NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        sessionConfig.HTTPMaximumConnectionsPerHost = 3;
+        session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    }
     return session;
 }
 
 - (void) startDownloadingPhoto:(Photo *) photo{
     if( [downloadPhotos containsObject:photo] )
         return;
-    NSURLSessionDownloadTask *task = [[self backgroundSession] downloadTaskWithURL:[NSURL URLWithString:photo.url]];
-    [downloadTasks addObject:task];
     [downloadPhotos addObject:photo];
-    [task resume];
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
-    
-    NSUInteger index = [downloadTasks indexOfObject:downloadTask];
-    Photo *photo = [downloadPhotos objectAtIndex:index];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *documentDirectory = [urls objectAtIndex:0];
-    
-    NSURL *originalUrl = [NSURL URLWithString:[downloadTask.originalRequest.URL lastPathComponent]];
-    NSString *imageName = [originalUrl lastPathComponent];
-    NSURL *destinationUrl = [documentDirectory URLByAppendingPathComponent:imageName];
-    NSURL *thumbnailDestinationUrl = [documentDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"thumbnail_%@", [originalUrl lastPathComponent]]];
-    NSError *fileManagerError;
-    
-    [fileManager removeItemAtURL:destinationUrl error:NULL];
-    
-    [fileManager copyItemAtURL:location toURL:destinationUrl error:&fileManagerError];
-    
-    if(fileManagerError == nil){
-        
-        UIImage *originalImage = [UIImage imageWithContentsOfFile:destinationUrl.path];
-        CGSize destinationSize = CGSizeMake(100, 100);
-        UIGraphicsBeginImageContext(destinationSize);
-        [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
-        imageType = [imageType lowercaseString];
-        if([imageType isEqualToString:@"jpg"]){
-            [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailDestinationUrl.path atomically:YES];
-        }
-        else if ([imageType isEqualToString:@"png"]){
-            [UIImagePNGRepresentation(newImage) writeToFile:thumbnailDestinationUrl.path atomically:YES];
-        }
-        
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //NSLog(@"itemname : %@", photo.item.name);
-                /*if(downloadTask.error)
-                 NSLog(@"did finish with error : %@",[downloadTask.originalRequest.URL lastPathComponent]);
-                 else
-                 NSLog(@"did finish without error : %@",[downloadTask.originalRequest.URL lastPathComponent]);*/
-                photo.filePath = destinationUrl.path;
-                photo.thumbnail_filePath = thumbnailDestinationUrl.path;
-                //NSLog(@"%@",photo.thumbnail_filePath);
-                [self saveContext];
-            });
+    NSURL * url = [NSURL URLWithString:photo.url];
+    if( !url ){
+        url = [NSURL URLWithString:[photo.url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"incorrect url? new url : %@",url);
     }
-    else{
-        NSLog(@"fileManagerError: %@",fileManagerError.localizedDescription);
+    else {
+        NSLog(@"correct url: %@",url);
     }
-}
-
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error{
-    if(error){
-        NSUInteger index = [downloadTasks indexOfObject:task];
-        Photo *photo = [downloadPhotos objectAtIndex:index];
-        NSLog(@"downloadTask error: %@, \n url = %@, place: %@",error.localizedDescription,photo.url,photo.place.name);
-        [downloadTasks removeObjectAtIndex:index];
-        [downloadPhotos removeObjectAtIndex:index];
-    } else {
-        NSLog(@"downloading completed");
-    }
-}
-
-/*- (void) callCompletionHandlerIfFinished{
-    //[mysession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks1){
-    [[self backgroundSession] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks1){
-        NSUInteger count = dataTasks.count + uploadTasks.count + downloadTasks1.count;
-        //NSLog(@"count of tasks: %d",downloadTasks1.count);
-        if (count == 0) {
-            // все таски закончены
-            //NSLog(@"all tasks ended");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.progressView.progress = 1;
-            });
-            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            if (appDelegate.backgroundSessionCompletionHandler) {
-                void (^completionHandler)() = appDelegate.backgroundSessionCompletionHandler;
-                appDelegate.backgroundSessionCompletionHandler = nil;
-                completionHandler();
-            }
-        }
-    }];
-}*/
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes{
-    NSLog(@"didResumeAtOffSet : %lld",expectedTotalBytes);
-}
-
--(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
-    //NSLog(@"%lld %lld %lld",bytesWritten,totalBytesWritten,totalBytesExpectedToWrite);
+    
+    NSURLSession *session = [self getDownloadPhotoSession];
+    
+    [[session downloadTaskWithURL: url
+                completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                    
+                    if(error){
+                        NSLog(@"error:  %@ \n url: %@",error.localizedDescription, url);
+                        [downloadPhotos removeObject:photo];
+                        return;
+                    }
+                    if( ![downloadPhotos containsObject:photo]){
+                        return;
+                    }
+                    NSFileManager *fileManager = [NSFileManager defaultManager];
+                    
+                    NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+                    NSURL *documentsDirectory = [urls objectAtIndex:0];
+                    
+                    //NSURL *originalUrl = [NSURL URLWithString:[url lastPathComponent]];
+                    NSString *imageName = [url lastPathComponent];
+                    NSLog(@"imageName : %@",imageName);
+                    
+                    if( ! ( !imageName || [imageName isEqualToString:@""] )  ){
+                        NSURL *destinationUrl = [documentsDirectory URLByAppendingPathComponent:imageName];
+                        NSURL *thumbnailDestinationUrl = [documentsDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"thumbnail_%@", imageName]];
+                        NSError *fileManagerError;
+                        
+                        [fileManager removeItemAtURL:destinationUrl error:NULL];
+                        
+                        [fileManager copyItemAtURL:location toURL:destinationUrl error:&fileManagerError];
+                        
+                        if(fileManagerError == nil){
+                            
+                            UIImage *originalImage = [UIImage imageWithContentsOfFile:destinationUrl.path];
+                            CGSize destinationSize = CGSizeMake(100, 100);
+                            UIGraphicsBeginImageContext(destinationSize);
+                            [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+                            UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+                            UIGraphicsEndImageContext();
+                            NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
+                            imageType = [imageType lowercaseString];
+                            if([imageType isEqualToString:@"jpg"]){
+                                [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailDestinationUrl.path atomically:YES];
+                            }
+                            else if ([imageType isEqualToString:@"png"]){
+                                [UIImagePNGRepresentation(newImage) writeToFile:thumbnailDestinationUrl.path atomically:YES];
+                            }
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if( ![downloadPhotos containsObject:photo] )
+                                    return;
+                                photo.filePath = destinationUrl.path;
+                                photo.thumbnail_filePath = thumbnailDestinationUrl.path;
+                                [self saveContext];
+                            });
+                        }
+                        else{
+                            NSLog(@"fileManagerError: %@",fileManagerError.localizedDescription);
+                        }
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if( ![downloadPhotos containsObject:photo] )
+                            return;
+                        [downloadPhotos removeObject:photo];
+                    });
+                    
+                }] resume];
 }
 
 @end

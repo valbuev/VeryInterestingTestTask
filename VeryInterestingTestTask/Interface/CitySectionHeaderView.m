@@ -34,7 +34,6 @@
 }
 
 - (void)awakeFromNib{
-    NSLog(@"CitySectionHeaderView awake from nib");
 }
 
 - (IBAction)btnToggleClicked:(id)sender {
@@ -45,7 +44,7 @@
 }
 
 -(void)dealloc{
-    NSLog(@"CitySectionHeaderView dealloc");
+    //NSLog(@"CitySectionHeaderView dealloc");
 }
 
 
