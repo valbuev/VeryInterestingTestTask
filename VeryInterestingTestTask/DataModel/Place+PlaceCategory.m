@@ -7,6 +7,7 @@
 //
 
 #import "Place+PlaceCategory.h"
+#import <MapKit/MapKit.h>
 
 @implementation Place (PlaceCategory)
 
@@ -35,6 +36,10 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
+//    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@" { {{ latitude - %@ } *  { latitude - %@ } }  / {%@ * %@} } +  { { { longtitude - -70 } * { longtitude - -70 } } * 4 }  < 225 ",
+//                               [NSNumber numberWithDouble:10],[NSNumber numberWithDouble:10],[NSNumber numberWithDouble:0.5],[NSNumber numberWithDouble:0.5]];
+    //[request setPredicate:predicate2];
+    
     NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"city.name" ascending:YES];
     NSSortDescriptor *sort2 = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     
@@ -43,7 +48,7 @@
     controller = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                      managedObjectContext:context
                                                        sectionNameKeyPath:@"city.name"
-                                                                cacheName:@""];
+                                                                cacheName:nil];
     
     return controller;
 }

@@ -159,6 +159,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 - (void) configureCell: (PlaceTableViewCell *) cell forIndexPath: (NSIndexPath *) indexPath {
     Place *place = [controller objectAtIndexPath:indexPath];
     cell.labelName.text = place.name;
+    
     if( place.photos.count > 0){
         Photo *photo;
         for( Photo *photo_ in place.photos){
