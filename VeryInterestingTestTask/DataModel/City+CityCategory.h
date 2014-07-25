@@ -13,4 +13,7 @@
 // Creates new object of City class with nested name
 + (City *) newCityWithName:(NSString *) name MOC:(NSManagedObjectContext *) context;
 
+// Searches city with givven name. If cant find, creates new city and returns it;
++ (City *) findCityByNameOrCreate: (NSString *) name MOC: (NSManagedObjectContext *) context;
+
 @end

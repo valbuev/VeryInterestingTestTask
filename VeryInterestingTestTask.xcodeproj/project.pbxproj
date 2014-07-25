@@ -35,6 +35,7 @@
 		A344D3E61932D3F7007C6D72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3E51932D3F7007C6D72 /* CoreData.framework */; };
 		A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */; };
 		A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A344D3EA1932DF44007C6D72 /* Localizable.strings */; };
+		A3BB5D111982348C00ECD517 /* NewPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BB5D101982348C00ECD517 /* NewPlaceView.m */; };
 		A3C175EF197E4D4A007E6B39 /* FilterPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */; };
 		A3C175F11980A0FD007E6B39 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C175F01980A0FD007E6B39 /* MapKit.framework */; };
 		A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D413197CC16700C980F1 /* no_photo.jpg */; };
@@ -98,6 +99,8 @@
 		A344D3E51932D3F7007C6D72 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A344D3E81932D69A007C6D72 /* PlacesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlacesModel.xcdatamodel; sourceTree = "<group>"; };
 		A344D3EA1932DF44007C6D72 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A3BB5D0F1982348C00ECD517 /* NewPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewPlaceView.h; path = Interface/NewPlaceView.h; sourceTree = "<group>"; };
+		A3BB5D101982348C00ECD517 /* NewPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewPlaceView.m; path = Interface/NewPlaceView.m; sourceTree = "<group>"; };
 		A3C175ED197E4D4A007E6B39 /* FilterPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterPopupView.h; path = Interface/FilterPopupView.h; sourceTree = "<group>"; };
 		A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterPopupView.m; path = Interface/FilterPopupView.m; sourceTree = "<group>"; };
 		A3C175F01980A0FD007E6B39 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -141,6 +144,8 @@
 				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
 				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
 				A31B661C19799CE900CBCEE3 /* CitiesListView */,
+				A3BB5D0F1982348C00ECD517 /* NewPlaceView.h */,
+				A3BB5D101982348C00ECD517 /* NewPlaceView.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 				A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */,
 				A31B660819797EFE00CBCEE3 /* City+CityCategory.m in Sources */,
 				A31B66151979973400CBCEE3 /* City.m in Sources */,
+				A3BB5D111982348C00ECD517 /* NewPlaceView.m in Sources */,
 				A31B65F619797E4B00CBCEE3 /* Photo.m in Sources */,
 				A31B65F319797E4B00CBCEE3 /* Place.m in Sources */,
 				A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */,

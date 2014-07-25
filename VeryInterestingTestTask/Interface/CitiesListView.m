@@ -89,6 +89,29 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     else {
         [self setFetchedResultsController];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_mocDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
+}
+
+- (void)_mocDidSaveNotification:(NSNotification *)notification
+{
+    NSLog(@"did save");
+    NSManagedObjectContext *savedContext = [notification object];
+    
+    // ignore change notifications for the main MOC
+    if (self.context == savedContext)
+    {
+        return;
+    }
+    
+    if (self.context.persistentStoreCoordinator != savedContext.persistentStoreCoordinator)
+    {
+        // that's another database
+        return;
+    }
+    
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.context mergeChangesFromContextDidSaveNotification:notification];
+    });
 }
 
 - (void) showInitialDownloaderView{
@@ -293,40 +316,40 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 }
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    BOOL isSectionHidden = [[hiddenSections objectAtIndex:indexPath.section] boolValue];
-    BOOL isNewSectionHidden = [[hiddenSections objectAtIndex:newIndexPath.section] boolValue];
-    switch (type) {
-        case NSFetchedResultsChangeDelete:
-            if(isSectionHidden == NO){
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        BOOL isSectionHidden = [[hiddenSections objectAtIndex:indexPath.section] boolValue];
+        BOOL isNewSectionHidden = [[hiddenSections objectAtIndex:newIndexPath.section] boolValue];
+        switch (type) {
+            case NSFetchedResultsChangeDelete:
+                if(isSectionHidden == NO){
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                }
+                break;
+                
+            case NSFetchedResultsChangeInsert:
+                if(isSectionHidden == NO){
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                }
+                break;
+                
+            case NSFetchedResultsChangeMove:{
+                if(isSectionHidden == NO){
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                }
+                if(isNewSectionHidden == NO){
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                }
             }
-            break;
-            
-        case NSFetchedResultsChangeInsert:
-            if(isSectionHidden == NO){
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:{
+                PlaceTableViewCell *cell = (PlaceTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+                [self configureCell:cell forIndexPath:indexPath];
             }
-            break;
-            
-        case NSFetchedResultsChangeMove:{
-            if(isSectionHidden == NO){
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            }
-            if(isNewSectionHidden == NO){
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        case NSFetchedResultsChangeUpdate:{
-            PlaceTableViewCell *cell = (PlaceTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-            [self configureCell:cell forIndexPath:indexPath];
-        }
-            break;
-            
-        default:
-            break;
-    }
 }
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
