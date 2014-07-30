@@ -35,6 +35,7 @@
 		A344D3E61932D3F7007C6D72 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3E51932D3F7007C6D72 /* CoreData.framework */; };
 		A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A344D3E71932D69A007C6D72 /* PlacesModel.xcdatamodeld */; };
 		A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A344D3EA1932DF44007C6D72 /* Localizable.strings */; };
+		A3B1E92919889D8900B58E9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B1E92819889D8900B58E9E /* CoreLocation.framework */; };
 		A3BB5D111982348C00ECD517 /* NewPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BB5D101982348C00ECD517 /* NewPlaceView.m */; };
 		A3C175EF197E4D4A007E6B39 /* FilterPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */; };
 		A3C175F11980A0FD007E6B39 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C175F01980A0FD007E6B39 /* MapKit.framework */; };
@@ -99,6 +100,7 @@
 		A344D3E51932D3F7007C6D72 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A344D3E81932D69A007C6D72 /* PlacesModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlacesModel.xcdatamodel; sourceTree = "<group>"; };
 		A344D3EA1932DF44007C6D72 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A3B1E92819889D8900B58E9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A3BB5D0F1982348C00ECD517 /* NewPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewPlaceView.h; path = Interface/NewPlaceView.h; sourceTree = "<group>"; };
 		A3BB5D101982348C00ECD517 /* NewPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewPlaceView.m; path = Interface/NewPlaceView.m; sourceTree = "<group>"; };
 		A3C175ED197E4D4A007E6B39 /* FilterPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterPopupView.h; path = Interface/FilterPopupView.h; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3B1E92919889D8900B58E9E /* CoreLocation.framework in Frameworks */,
 				A3C175F11980A0FD007E6B39 /* MapKit.framework in Frameworks */,
 				A344D3E61932D3F7007C6D72 /* CoreData.framework in Frameworks */,
 				A344D3B01932D391007C6D72 /* CoreGraphics.framework in Frameworks */,
@@ -279,6 +282,7 @@
 		A344D3AC1932D391007C6D72 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3B1E92819889D8900B58E9E /* CoreLocation.framework */,
 				A3C175F01980A0FD007E6B39 /* MapKit.framework */,
 				A344D3E51932D3F7007C6D72 /* CoreData.framework */,
 				A344D3AD1932D391007C6D72 /* Foundation.framework */,

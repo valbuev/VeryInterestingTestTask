@@ -11,12 +11,16 @@
 
 @implementation Place (PlaceCategory)
 
+static NSString *entityName = @"Place";
+
 // Creates new Place object with attributes
 + (Place *) newPlaceWithName:(NSString *) name description:(NSString *) description latitude:(NSNumber *) latitude longtitude:(NSNumber *) longtitude MOC:(NSManagedObjectContext *) context{
     
     Place *place;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
-    place = [[Place alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
+                                              inManagedObjectContext: context];
+    place = [[Place alloc] initWithEntity:entity
+           insertIntoManagedObjectContext:context];
     place.name = [name copy];
     if(description)
         place.placeDescription = [description copy];
@@ -32,7 +36,8 @@
 + (NSFetchedResultsController *) newFetchedResultsControllerForMOC:(NSManagedObjectContext *) context{
     
     NSFetchedResultsController *controller;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
+                                              inManagedObjectContext: context];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
@@ -51,6 +56,37 @@
                                                                 cacheName:nil];
     
     return controller;
+}
+
+// Creates and returns new NSFetchRequest with Places grouped by City.name and filter by location with center at centerLat, centerLon and ellipce-koefficients: kLat, kLon.
+//  (lat - centerLat)^2 / kLat^2 + (lon - centerLon)^2 / klon^2  <= 1
++ (NSFetchRequest *) newFetchRequestWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon kLatitude:(double) kLat kLongitude:(double) klon {
+    
+    // request
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
+                                              inManagedObjectContext: context];
+    [request setEntity:entity];
+    
+    // predicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @" { {{ latitude - %f } *  { latitude - %f } }  / { %f * %f } } +  { { { longtitude - %f } * { longtitude - %f } } / { %f * %f } }  <= 1 ", centerLat, centerLat, kLat, kLat, centerLon, centerLon, klon, klon ];
+    [request setPredicate:predicate];
+    
+    // sort descriptors
+    NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"city.name" ascending:YES];
+    NSSortDescriptor *sort2 = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObjects:sort1,sort2, nil]];
+    
+    return request;
+}
+
+// Creates and returns new NSPredicate for Places grouped by City.name and filter by location with center at centerLat, centerLon and ellipce-koefficients: kLat, kLon.
+//  (lat - centerLat)^2 / kLat^2 + (lon - centerLon)^2 / klon^2  <= 1
++ (NSPredicate *) newPredicateWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon kLatitude:(double) kLat kLongitude:(double) klon {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @" { {{ latitude - %f } *  { latitude - %f } }  / { %f * %f } } +  { { { longtitude - %f } * { longtitude - %f } } / { %f * %f } }  <= 1 ", centerLat, centerLat, kLat, kLat, centerLon, centerLon, klon, klon ];
+    return predicate;
 }
 
 @end

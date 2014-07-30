@@ -16,12 +16,14 @@
 #import "CitySectionHeaderView.h"
 #import "Photo+PhotoCategory.h"
 #import "FilterPopupView.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 static NSString *SectionHeaderViewIdentifier = @"SectionHeaderViewIdentifier";
 static NSString *PlaceCellIdentifier = @"CellPlace";
 
 @interface CitiesListView ()
-<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate, FilterPopupViewDelegate>
+<NSFetchedResultsControllerDelegate, CitySectionHeaderViewDelegate, InitialDownloaderViewDelegate, FilterPopupViewDelegate, CLLocationManagerDelegate>
 {
     NSFetchedResultsController *controller;
     NSMutableArray *hiddenSections;
@@ -30,6 +32,10 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     
     LocationFilterRadius locationFilterRadius;
     UIPopoverController *filterViewPopoverController;
+    
+    
+    CLLocationManager *locationManager;
+    CLLocation *currentLocation;
 }
 
 @property (nonatomic,retain) AppSettings *appSettings;
@@ -87,6 +93,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         [self showInitialDownloaderView];
     }
     else {
+        [self initCLLocationManager];
         [self setFetchedResultsController];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_mocDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
@@ -109,9 +116,9 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         return;
     }
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    //dispatch_sync(dispatch_get_main_queue(), ^{
         [self.context mergeChangesFromContextDidSaveNotification:notification];
-    });
+    //});
 }
 
 - (void) showInitialDownloaderView{
@@ -124,6 +131,10 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 - (void) setFetchedResultsController{
     controller = [Place newFetchedResultsControllerForMOC:self.context];
     controller.delegate = self;
+    [self reloadFetchedResultsController];
+}
+
+- (void) reloadFetchedResultsController {
     NSError *error;
     [controller performFetch:&error];
     if( error ){
@@ -137,6 +148,77 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
             [hiddenSections addObject:[NSNumber numberWithBool:NO]];
         }
     }
+    [self.tableView reloadData];
+}
+
+- (void) reloadFetchedResultsControllerIfNeed {
+    
+    if ( locationFilterRadius == LocationFilterRadiusNone ) {
+        return;
+    }
+    
+    if ( currentLocation == nil ) {
+        return;
+    }
+    
+    double radius;
+    switch (locationFilterRadius) {
+        case LocationFilterRadiusOneHundredMiles:
+            radius = 100000 * 1.609344; // 100 miles
+            break;
+        case LocationFilterRadiusOneMile:
+            radius = 1000 * 1.609344; // 1 mile
+            break;
+        case LocationFilterRadiusTenMiles:
+            radius = 10000 * 1.609344; // 10 miles
+            break;
+            
+        default:
+            radius = 0;
+            break;
+    }
+    //NSLog(@"radius : %f ", radius);
+    
+    double dLat = 0.001;
+    double dLon = 0.001;
+    
+    CLLocationCoordinate2D dLatCoordinate = currentLocation.coordinate;
+    if ( dLatCoordinate.latitude >= 85 ){
+        dLatCoordinate.latitude = - dLat + dLatCoordinate.latitude;
+    }
+    else {
+        dLatCoordinate.latitude = dLat + dLatCoordinate.latitude;
+    }
+    CLLocationCoordinate2D dLonCoordinate = currentLocation.coordinate;
+    dLonCoordinate.longitude = dLon + dLonCoordinate.longitude;
+    
+    //NSLog( @"dLat: %f dlon: %f", dLat, dLon );
+    //NSLog( @"dLatCoordinate: %f %f dlonCoordinate: %f %f", dLatCoordinate.latitude, dLatCoordinate.longitude, dLonCoordinate.latitude, dLonCoordinate.longitude );
+    
+    MKMapPoint dLatPoint = MKMapPointForCoordinate( dLatCoordinate );
+    MKMapPoint dLonPoint = MKMapPointForCoordinate( dLonCoordinate );
+    MKMapPoint currentPoint = MKMapPointForCoordinate( currentLocation.coordinate );
+    
+    //NSLog( @"dLatPoint: %f, %f dLonPoint: %f %f currentPoint %f %f", dLatPoint.x, dLatPoint.y, dLonPoint.x, dLonPoint.y, currentPoint.x, currentPoint.y );
+    
+    CLLocationDistance dLatRadius = MKMetersBetweenMapPoints( currentPoint, dLatPoint );
+    CLLocationDistance dLonRadius = MKMetersBetweenMapPoints( currentPoint, dLonPoint );
+    
+    //NSLog( @"dLatR: %f dlonR: %f", dLatRadius, dLonRadius );
+    
+    double kLat = ABS( dLat ) * ( radius / dLatRadius );
+    double kLon = dLon * ( radius / dLonRadius );
+    
+    //NSLog( @"kLat: %f klon: %f", kLat, kLon );
+    
+    NSPredicate *predicate = [Place newPredicateWithMOC: self.context
+                                         centerLatitude: currentLocation.coordinate.latitude
+                                        centerLongitude: currentLocation.coordinate.longitude
+                                              kLatitude: kLat
+                                             kLongitude: kLon];
+    [controller.fetchRequest setPredicate: predicate];
+    
+    [self reloadFetchedResultsController];
 }
 
 
@@ -150,11 +232,12 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //NSLog(@"sections count; %d",controller.sections.count);
     if( !controller )
         return 0;
-    else
+    else {
+        //NSLog(@"sections count; %d",controller.sections.count);
         return controller.sections.count;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -182,6 +265,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 - (void) configureCell: (PlaceTableViewCell *) cell forIndexPath: (NSIndexPath *) indexPath {
     Place *place = [controller objectAtIndexPath:indexPath];
     cell.labelName.text = place.name;
+    NSLog(@"latitude: %@ longitude:%@",place.latitude,place.longtitude);
     
     if( place.photos.count > 0){
         Photo *photo;
@@ -243,7 +327,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
             if(pObj.place == place)
                 _stop = YES;
             stop = &_stop;
-            return _stop;
+             return _stop;
         }];
         if(searchResult != NSNotFound){
             [downloadPhotos removeObjectAtIndex:searchResult];
@@ -281,6 +365,8 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 #pragma mark NSFetchResultsControllerDelegate ( + FilterPopupViewDelegate )
 
 - (void)setLocationFilterRadius:(LocationFilterRadius)_locationFilterRadius{
+    
+    BOOL haveChanges = locationFilterRadius != _locationFilterRadius ;
     locationFilterRadius = _locationFilterRadius;
     [filterViewPopoverController dismissPopoverAnimated:YES];
     NSString *title;
@@ -305,6 +391,15 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
             break;
     }
     self.filterBarButton.title = title;
+    if (haveChanges == YES) {
+        if ( locationFilterRadius != LocationFilterRadiusNone ){
+            [self reloadFetchedResultsControllerIfNeed];
+        }
+        else {
+            [controller.fetchRequest setPredicate:nil];
+            [self reloadFetchedResultsController];
+        }
+    }
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -327,7 +422,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
                 
             case NSFetchedResultsChangeInsert:
                 if(isSectionHidden == NO){
-                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
                 break;
                 
@@ -362,7 +457,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
             
         case NSFetchedResultsChangeInsert:{
             [hiddenSections insertObject:[NSNumber numberWithBool:NO] atIndex:sectionIndex];
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
         }
             break;
             
@@ -503,6 +598,34 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     }
     else if ([imageType isEqualToString:@"png"]){
         [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:YES];
+    }
+}
+
+#pragma mark Location Manager
+
+- (void) initCLLocationManager {
+    locationManager = [CLLocationManager new];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    if ( currentLocation == nil ){
+        currentLocation = [locations lastObject];
+        NSLog(@"location: %@",[locations lastObject]);
+        [self reloadFetchedResultsControllerIfNeed];
+    }
+    else {
+        MKMapPoint point1 = MKMapPointForCoordinate(currentLocation.coordinate);
+        MKMapPoint point2 = MKMapPointForCoordinate([[locations lastObject] coordinate]);
+        CLLocationDistance distance = MKMetersBetweenMapPoints(point1, point2);
+        if( distance > 100 ){
+            currentLocation = [locations lastObject];
+            NSLog(@"location: %@ distance: %f",[locations lastObject], distance);
+            [self reloadFetchedResultsControllerIfNeed];
+        }
     }
 }
 
