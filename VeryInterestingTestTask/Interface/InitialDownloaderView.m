@@ -230,15 +230,17 @@
                            MOC: self.context];
     }
     if( cityName && ![cityName isEqualToString:@""]){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@",cityName];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name like %@",cityName];
         NSArray * filtered_cities = [cities filteredArrayUsingPredicate:predicate];
         if( filtered_cities.count > 0){
             City *city = [filtered_cities objectAtIndex:0];
             place.city = city;
+            //NSLog(@"city-%@-search count = %d",city.name,filtered_cities.count);
         }
         else{
             City *city = [City newCityWithName:cityName MOC:self.context];
             place.city = city;
+            [cities addObject:city];
         }
     }
     

@@ -18,6 +18,7 @@
 #import "FilterPopupView.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "NewPlaceView.h"
 
 static NSString *SectionHeaderViewIdentifier = @"SectionHeaderViewIdentifier";
 static NSString *PlaceCellIdentifier = @"CellPlace";
@@ -53,15 +54,17 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 
 
 - (void)saveContext {
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.context;
-    
-    if(managedObjectContext != nil) {
-        if([managedObjectContext hasChanges] && ![managedObjectContext save:&error]){
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSError *error = nil;
+        NSManagedObjectContext *managedObjectContext = self.context;
+        
+        if(managedObjectContext != nil) {
+            if([managedObjectContext hasChanges] && ![managedObjectContext save:&error]){
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
         }
-    }
+    });
 }
 
 - (NSManagedObjectContext *) context{
@@ -96,7 +99,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         [self initCLLocationManager];
         [self setFetchedResultsController];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_mocDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_mocDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 
 - (void)_mocDidSaveNotification:(NSNotification *)notification
@@ -117,7 +120,8 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     }
     
     //dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.context mergeChangesFromContextDidSaveNotification:notification];
+        //[self.context mergeChangesFromContextDidSaveNotification:notification];
+    [self.context performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     //});
 }
 
@@ -206,16 +210,16 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     
     //NSLog( @"dLatR: %f dlonR: %f", dLatRadius, dLonRadius );
     
-    double kLat = ABS( dLat ) * ( radius / dLatRadius );
-    double kLon = dLon * ( radius / dLonRadius );
+    double RLat = ABS( dLat ) * ( radius / dLatRadius );
+    double RLon = dLon * ( radius / dLonRadius );
     
     //NSLog( @"kLat: %f klon: %f", kLat, kLon );
     
     NSPredicate *predicate = [Place newPredicateWithMOC: self.context
                                          centerLatitude: currentLocation.coordinate.latitude
                                         centerLongitude: currentLocation.coordinate.longitude
-                                              kLatitude: kLat
-                                             kLongitude: kLon];
+                                              RLatitude: RLat
+                                             RLongitude: RLon];
     [controller.fetchRequest setPredicate: predicate];
     
     [self reloadFetchedResultsController];
@@ -340,7 +344,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+    return UITableViewCellEditingStyleDelete;
 }
 
 
@@ -350,7 +354,16 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 {
     if( [[segue identifier] isEqualToString:@"FilterView"]){
         
+    } else if ( [[segue identifier] isEqualToString:@"NewPlace"] ) {
+        NewPlaceView *newPlaceView = (NewPlaceView *) segue.destinationViewController;
     }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if( [identifier isEqualToString:@"NewPlace"] ) {
+        
+    }
+    return YES;
 }
 
 - (IBAction)filterBarButtonClicked:(id)sender {
@@ -411,6 +424,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
 }
 
 -(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    NSLog(@"controller didChangeObject");
         BOOL isSectionHidden = [[hiddenSections objectAtIndex:indexPath.section] boolValue];
         BOOL isNewSectionHidden = [[hiddenSections objectAtIndex:newIndexPath.section] boolValue];
         switch (type) {

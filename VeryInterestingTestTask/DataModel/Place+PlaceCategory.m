@@ -70,7 +70,7 @@ static NSString *entityName = @"Place";
     
     // predicate
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @" { {{ latitude - %f } *  { latitude - %f } }  / { %f * %f } } +  { { { longtitude - %f } * { longtitude - %f } } / { %f * %f } }  <= 1 ", centerLat, centerLat, kLat, kLat, centerLon, centerLon, klon, klon ];
+                              @" { devide: { multiply: { latitude - %f } by:  { latitude - %f } }  by: { %f } } +  { devide: { multiply: { longtitude - %f } by: { longtitude - %f } } by: { %f } }  <= 1 ", centerLat, centerLat, kLat * kLat, centerLon, centerLon, klon * klon ];
     [request setPredicate:predicate];
     
     // sort descriptors
@@ -81,11 +81,61 @@ static NSString *entityName = @"Place";
     return request;
 }
 
-// Creates and returns new NSPredicate for Places grouped by City.name and filter by location with center at centerLat, centerLon and ellipce-koefficients: kLat, kLon.
-//  (lat - centerLat)^2 / kLat^2 + (lon - centerLon)^2 / klon^2  <= 1
-+ (NSPredicate *) newPredicateWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon kLatitude:(double) kLat kLongitude:(double) klon {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @" { {{ latitude - %f } *  { latitude - %f } }  / { %f * %f } } +  { { { longtitude - %f } * { longtitude - %f } } / { %f * %f } }  <= 1 ", centerLat, centerLat, kLat, kLat, centerLon, centerLon, klon, klon ];
+// Creates and returns new NSPredicate for Places grouped by City.name and filter by location with center at centerLat, centerLon and square-radiuses RLat and RLon.
+//  ( centerLat - RLat < latitude < centerLat + RLat )  AND   ( centerLon - RLon < latitude < centerLon + RLon )
++ (NSPredicate *) newPredicateWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon RLatitude:(double) RLat RLongitude:(double) RLon {
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+//                              @" { {{ latitude - %f } *  { latitude - %f } }  / { %f * %f } } +  { { { longtitude - %f } * { longtitude - %f } } / { %f * %f } }  <= 1 ", centerLat, centerLat, kLat, kLat, centerLon, centerLon, klon, klon ];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+//                              @" ( {latitude - %f}  < %f ) and ( {longtitude - %f} < %f ) ", centerLat, kLat , centerLon, klon ];
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:
+    //                          @" ( (latitude - %f) * (latitude - %f) )  < %f  ", centerLat, centerLat, kLat*kLat];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+//                              @" ( ( ((latitude - %f)*(latitude - %f))  / (%f) ) +  ( ( (longtitude - %f) * (longtitude - %f) ) / (%f) ) )  <= 1 ", centerLat, centerLat, kLat * kLat, centerLon, centerLon, klon * klon ];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+//                              @" ( ( ((latitude - %f)*(latitude - %f))  / (%f) ) +  ( ((longtitude - %f)*(longtitude - %f)) / (%f) ) )  <= 1 ", centerLat, centerLat, kLat * kLat, centerLon, centerLon, klon * klon ];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+//                              @" ( ( ((latitude - %f)*(latitude - %f))  / (%f) ) +  ( ((longtitude - %f)*(longtitude - %f)) / (%f) ) )  <= 1 ", centerLat, centerLat, kLat * kLat, centerLon, centerLon, klon * klon ];
+    
+    NSPredicate *latPredicate1 = [NSPredicate
+                                  predicateWithFormat:@" (latitude > %f) AND (latitude < %f)",
+                                  centerLat - RLat, centerLat + RLat ];
+    NSPredicate *latPredicate2 = [NSPredicate
+                                  predicateWithFormat:@" (latitude > %f) AND (latitude < %f)",
+                                  360 + centerLat - RLat, 360 + centerLat + RLat ];
+    NSPredicate *latPredicate3 = [NSPredicate
+                                  predicateWithFormat:@" (latitude > %f) AND (latitude < %f)",
+                                  -360 + centerLat - RLat, -360 + centerLat + RLat ];
+    NSPredicate *latPredicate = [NSCompoundPredicate
+                                 orPredicateWithSubpredicates: [NSArray
+                                                                arrayWithObjects:
+                                                                latPredicate1,
+                                                                latPredicate2,
+                                                                latPredicate3,
+                                                                nil]];
+    
+    NSPredicate *lonPredicate1 = [NSPredicate
+                                  predicateWithFormat:@" (longtitude > %f) AND (longtitude < %f)",
+                                  centerLon - RLon, centerLon + RLon ];
+    NSPredicate *lonPredicate2 = [NSPredicate
+                                  predicateWithFormat:@" (longtitude > %f) AND (longtitude < %f)",
+                                  180 + centerLon - RLon, 180 + centerLon + RLon ];
+    NSPredicate *lonPredicate3 = [NSPredicate
+                                  predicateWithFormat:@" (longtitude > %f) AND (longtitude < %f)",
+                                  -180 + centerLon - RLon, -180 + centerLon + RLon ];
+    NSPredicate *lonPredicate = [NSCompoundPredicate
+                                 orPredicateWithSubpredicates: [NSArray
+                                                                arrayWithObjects:
+                                                                lonPredicate1,
+                                                                lonPredicate2,
+                                                                lonPredicate3,
+                                                                nil]];
+    
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:
+                              [NSArray arrayWithObjects:latPredicate, lonPredicate, nil]];
+    
+    NSLog(@"predicate: \n%@",predicate);
+    
     return predicate;
 }
 

@@ -10,4 +10,5 @@
 
 @interface NewPlaceView : UIViewController
 
+
 @end

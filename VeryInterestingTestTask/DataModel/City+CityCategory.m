@@ -32,7 +32,7 @@ static NSString *entityName = @"City";
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name like %@", name];
     [request setPredicate:predicate];
     
     NSError *error;
@@ -40,7 +40,8 @@ static NSString *entityName = @"City";
     
     if( !error ) {
         if( searchResults.count > 0 ){
-            city = [searchResults lastObject];
+            NSLog(@"city - search results count: %d",searchResults.count);
+            city = [searchResults objectAtIndex:0];
         }
         else {
             city = [City newCityWithName:name MOC:context];

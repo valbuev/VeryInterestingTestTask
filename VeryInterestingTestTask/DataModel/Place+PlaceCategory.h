@@ -16,8 +16,8 @@
 // Creates and returns new NSFetchedResultsController with Places grouped by city.name
 + (NSFetchedResultsController *) newFetchedResultsControllerForMOC:(NSManagedObjectContext *) context;
 
-// Creates and returns new NSPredicate for Places grouped by City.name and filter by location with center at centerLat, centerLon and ellipce-koefficients: kLat, kLon.
-//  (lat - centerLat)^2 / kLat^2 + (lon - centerLon)^2 / klon^2  <= 1
-+ (NSPredicate *) newPredicateWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon kLatitude:(double) kLat kLongitude:(double) klon;
+// Creates and returns new NSPredicate for Places grouped by City.name and filter by location with center at centerLat, centerLon and square-radiuses RLat and RLon.
+//  ( centerLat - RLat < latitude < centerLat + RLat )  AND   ( centerLon - RLon < latitude < centerLon + RLon )
++ (NSPredicate *) newPredicateWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon RLatitude:(double) RLat RLongitude:(double) RLon;
 
 @end

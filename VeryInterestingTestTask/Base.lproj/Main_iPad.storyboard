@@ -222,7 +222,7 @@
                     <navigationItem key="navigationItem" title="Cities" id="N3E-16-2iC">
                         <barButtonItem key="leftBarButtonItem" title="New" id="Jji-j9-RaB">
                             <connections>
-                                <segue destination="jdr-6g-54g" kind="push" id="Kj8-F3-GQc"/>
+                                <segue destination="jdr-6g-54g" kind="push" identifier="NewPlace" id="Kj8-F3-GQc"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="Wkc-TP-IVc">

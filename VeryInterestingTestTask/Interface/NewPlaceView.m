@@ -34,40 +34,47 @@
 
 - (IBAction)btnOKClicked:(id)sender {
     
-    //dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *cityName = self.textFieldCityName.text;
-        City *city;
-        if ( ![cityName isEqualToString:@""] ){
-            city = [City findCityByNameOrCreate: cityName MOC: self.context];
-        } else {
-            city = nil;
-            NSLog(@"city = nil");
-        }
+    NSString *placeName = self.textFieldName.text;
+    NSNumber *latitude = [NSNumber numberWithDouble: self.textFieldLatitude.text.doubleValue];
+    NSNumber *longitude = [NSNumber numberWithDouble: self.textFieldLongtitude.text.doubleValue];
         
-        NSString *placeName = self.textFieldName.text;
-        NSNumber *latitude = [NSNumber numberWithDouble: self.textFieldLatitude.text.doubleValue];
-        NSNumber *longitude = [NSNumber numberWithDouble: self.textFieldLongtitude.text.doubleValue];
-        
-        Place *place  = [Place newPlaceWithName: placeName
-                                   description: @""
-                                      latitude: latitude
-                                    longtitude: longitude
-                                           MOC: self.context];
-        place.city = city;
+    Place *place  = [Place newPlaceWithName: placeName
+                               description: @""
+                                  latitude: latitude
+                                longtitude: longitude
+                                        MOC: self.context];
     
+    NSString *cityName = self.textFieldCityName.text;
+    City *city;
+    if ( ![cityName isEqualToString:@""] ){
+        city = [City findCityByNameOrCreate: cityName MOC: self.context];
+        //city = [City newCityWithName: cityName MOC: self.context];
+        NSLog(@"city.name = %@",city.name);
+    } else {
+        city = nil;
+        NSLog(@"city = nil");
+    }
+    
+    place.city = city;
+    //place.city = nil;
+    //city.name = [city.name stringByAppendingString:@"_"];
+    
+    NSLog(@"before context saving");
     if( [self.context hasChanges] && ![self.context save:nil])
-        NSLog(@"has changes");
+        NSLog(@"has changes but cant save");
     //});
-    [self.navigationController popViewControllerAnimated:NO];
+    NSLog(@"before popviewControllerAnimated");
+    //[self.navigationController popViewControllerAnimated:NO];
 }
 
 - (NSManagedObjectContext *)context{
     if( _context )
         return _context;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSPersistentStoreCoordinator *coordinator = [appDelegate persistentStoreCoordinator];
-    _context = [[NSManagedObjectContext alloc] init];
-    [_context setPersistentStoreCoordinator:coordinator];
+    //NSPersistentStoreCoordinator *coordinator = [appDelegate persistentStoreCoordinator];
+    //_context = [[NSManagedObjectContext alloc] init];
+    //[_context setPersistentStoreCoordinator:coordinator];
+    _context = [appDelegate managedObjectContext];
     return _context;
 }
 
