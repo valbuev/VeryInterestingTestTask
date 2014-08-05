@@ -50,17 +50,17 @@
         NSLog(@"has changes but cant save");
     //});
     NSLog(@"before popviewControllerAnimated");
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSManagedObjectContext *)context{
     if( _context )
         return _context;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    //NSPersistentStoreCoordinator *coordinator = [appDelegate persistentStoreCoordinator];
-    //_context = [[NSManagedObjectContext alloc] init];
-    //[_context setPersistentStoreCoordinator:coordinator];
-    _context = [appDelegate managedObjectContext];
+    NSPersistentStoreCoordinator *coordinator = [appDelegate persistentStoreCoordinator];
+    _context = [[NSManagedObjectContext alloc] init];
+    [_context setPersistentStoreCoordinator:coordinator];
+    //_context = [appDelegate managedObjectContext];
     return _context;
 }
 

@@ -98,7 +98,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         [self initCLLocationManager];
         [self setFetchedResultsController];
     }
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_mocDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_mocDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 
 - (void)_mocDidSaveNotification:(NSNotification *)notification
@@ -119,8 +119,8 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     }
     
     //dispatch_sync(dispatch_get_main_queue(), ^{
-        //[self.context mergeChangesFromContextDidSaveNotification:notification];
-    [self.context performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
+        [self.context mergeChangesFromContextDidSaveNotification:notification];
+    //[self.context performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     //});
 }
 
@@ -354,7 +354,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     if( [[segue identifier] isEqualToString:@"FilterView"]){
         
     } else if ( [[segue identifier] isEqualToString:@"NewPlace"] ) {
-        NewPlaceView *newPlaceView = (NewPlaceView *) segue.destinationViewController;
+        //NewPlaceView *newPlaceView = (NewPlaceView *) segue.destinationViewController;
     }
 }
 
