@@ -7,7 +7,6 @@
 //
 
 #import "CitiesListView.h"
-#import "City+CityCategory.h"
 #import "PlaceTableViewCell.h"
 #import "Place+PlaceCategory.h"
 #import "AppSettings+AppSettingsCategory.h"

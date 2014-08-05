@@ -3,10 +3,6 @@
     <entity name="AppSettings" representedClassName="AppSettings" syncable="YES">
         <attribute name="didDataBeLoaded" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
     </entity>
-    <entity name="City" representedClassName="City" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="places" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Place" inverseName="city" inverseEntity="Place" syncable="YES"/>
-    </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail_filePath" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,16 +10,15 @@
         <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="photos" inverseEntity="Place" syncable="YES"/>
     </entity>
     <entity name="Place" representedClassName="Place" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longtitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="placeDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="places" inverseEntity="City" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="place" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
         <element name="AppSettings" positionX="-486" positionY="-142" width="128" height="58"/>
-        <element name="City" positionX="-488" positionY="-0" width="128" height="75"/>
         <element name="Photo" positionX="-108" positionY="-0" width="128" height="105"/>
         <element name="Place" positionX="-299" positionY="-45" width="128" height="133"/>
     </elements>

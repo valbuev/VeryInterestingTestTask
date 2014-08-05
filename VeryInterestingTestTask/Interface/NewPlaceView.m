@@ -9,7 +9,6 @@
 #import "NewPlaceView.h"
 #import "AppDelegate.h"
 
-#import "City+CityCategory.h"
 #import "Place+PlaceCategory.h"
 
 @interface NewPlaceView ()
@@ -37,34 +36,21 @@
     NSString *placeName = self.textFieldName.text;
     NSNumber *latitude = [NSNumber numberWithDouble: self.textFieldLatitude.text.doubleValue];
     NSNumber *longitude = [NSNumber numberWithDouble: self.textFieldLongtitude.text.doubleValue];
-        
-    Place *place  = [Place newPlaceWithName: placeName
-                               description: @""
-                                  latitude: latitude
-                                longtitude: longitude
-                                        MOC: self.context];
-    
     NSString *cityName = self.textFieldCityName.text;
-    City *city;
-    if ( ![cityName isEqualToString:@""] ){
-        city = [City findCityByNameOrCreate: cityName MOC: self.context];
-        //city = [City newCityWithName: cityName MOC: self.context];
-        NSLog(@"city.name = %@",city.name);
-    } else {
-        city = nil;
-        NSLog(@"city = nil");
-    }
     
-    place.city = city;
-    //place.city = nil;
-    //city.name = [city.name stringByAppendingString:@"_"];
+    [Place newPlaceWithName: placeName
+                       city: cityName
+                description: @""
+                   latitude: latitude
+                 longtitude: longitude
+                        MOC: self.context];
     
     NSLog(@"before context saving");
     if( [self.context hasChanges] && ![self.context save:nil])
         NSLog(@"has changes but cant save");
     //});
     NSLog(@"before popviewControllerAnimated");
-    //[self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (NSManagedObjectContext *)context{

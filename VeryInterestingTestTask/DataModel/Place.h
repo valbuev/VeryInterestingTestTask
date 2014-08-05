@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class City;
 @class Photo;
 
 @interface Place : NSManagedObject
@@ -18,7 +17,7 @@
 @property (nonatomic, retain) NSNumber * longtitude;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * placeDescription;
-@property (nonatomic, retain) City *city;
+@property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSSet *photos;
 @end
 

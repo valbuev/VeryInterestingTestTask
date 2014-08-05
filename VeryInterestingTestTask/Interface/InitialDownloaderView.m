@@ -8,14 +8,12 @@
 
 #import "InitialDownloaderView.h"
 #import "AppDelegate.h"
-#import "City+CityCategory.h"
 #import "Place+PlaceCategory.h"
 #import "AppSettings+AppSettingsCategory.h"
 #import "Photo+PhotoCategory.h"
 
 @interface InitialDownloaderView ()
 <NSURLSessionDownloadDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate, UIAlertViewDelegate>{
-    NSMutableArray *cities;
 }
 
 @end
@@ -32,7 +30,6 @@
 {
     [super viewDidLoad];
     self.progressView.progress = 0;
-    cities = [NSMutableArray array];
     [self startDownloading];
 }
 
@@ -210,6 +207,8 @@
     NSNumber *longtitude = [NSNumber numberWithFloat:[[placeDict objectForKey:@"longtitude"] floatValue]];
     NSString *name = [placeDict objectForKey:@"name"];
     NSString *cityName = [placeDict objectForKey:@"city"];
+    if ( !cityName )
+        cityName = @"";
     if(!name
        || [name isEqualToString:@""]
        || latitude.doubleValue < -90
@@ -220,6 +219,7 @@
         return;
     }
     Place *place = [Place newPlaceWithName: name
+                                      city: cityName
                                description:description
                                   latitude:latitude
                                 longtitude:longtitude
@@ -229,21 +229,6 @@
                       forPlace: place
                            MOC: self.context];
     }
-    if( cityName && ![cityName isEqualToString:@""]){
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name like %@",cityName];
-        NSArray * filtered_cities = [cities filteredArrayUsingPredicate:predicate];
-        if( filtered_cities.count > 0){
-            City *city = [filtered_cities objectAtIndex:0];
-            place.city = city;
-            //NSLog(@"city-%@-search count = %d",city.name,filtered_cities.count);
-        }
-        else{
-            City *city = [City newCityWithName:cityName MOC:self.context];
-            place.city = city;
-            [cities addObject:city];
-        }
-    }
-    
 }
 
 

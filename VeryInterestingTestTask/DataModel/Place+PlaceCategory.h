@@ -11,12 +11,12 @@
 @interface Place (PlaceCategory)
 
 // Creates new Place object with attributes
-+ (Place *) newPlaceWithName:(NSString *) name description:(NSString *) description latitude:(NSNumber *) latitude longtitude:(NSNumber *) longtitude MOC:(NSManagedObjectContext *) context;
++ (Place *) newPlaceWithName:(NSString *) name city:(NSString *) city description:(NSString *) description latitude:(NSNumber *) latitude longtitude:(NSNumber *) longtitude MOC:(NSManagedObjectContext *) context;
 
-// Creates and returns new NSFetchedResultsController with Places grouped by city.name
+// Creates and returns new NSFetchedResultsController with Places grouped by city
 + (NSFetchedResultsController *) newFetchedResultsControllerForMOC:(NSManagedObjectContext *) context;
 
-// Creates and returns new NSPredicate for Places grouped by City.name and filter by location with center at centerLat, centerLon and square-radiuses RLat and RLon.
+// Creates and returns new NSPredicate for Places grouped by city and filter by location with center at centerLat, centerLon and square-radiuses RLat and RLon.
 //  ( centerLat - RLat < latitude < centerLat + RLat )  AND   ( centerLon - RLon < latitude < centerLon + RLon )
 + (NSPredicate *) newPredicateWithMOC: (NSManagedObjectContext *) context centerLatitude:(double) centerLat centerLongitude:(double) centerLon RLatitude:(double) RLat RLongitude:(double) RLon;
 
