@@ -101,11 +101,11 @@ static NSString *entityName = @"Place";
                                   predicateWithFormat:@" (latitude > %f) AND (latitude < %f)",
                                   centerLat - RLat, centerLat + RLat ];
     NSPredicate *latPredicate2 = [NSPredicate
-                                  predicateWithFormat:@" (latitude > %f) AND (latitude < %f)",
-                                  360 + centerLat - RLat, 360 + centerLat + RLat ];
+                                  predicateWithFormat:@" latitude > %f ",
+                                  360 + centerLat - RLat ];
     NSPredicate *latPredicate3 = [NSPredicate
-                                  predicateWithFormat:@" (latitude > %f) AND (latitude < %f)",
-                                  -360 + centerLat - RLat, -360 + centerLat + RLat ];
+                                  predicateWithFormat:@" latitude < %f ",
+                                  -360 + centerLat + RLat ];
     NSPredicate *latPredicate = [NSCompoundPredicate
                                  orPredicateWithSubpredicates: [NSArray
                                                                 arrayWithObjects:
@@ -118,11 +118,11 @@ static NSString *entityName = @"Place";
                                   predicateWithFormat:@" (longtitude > %f) AND (longtitude < %f)",
                                   centerLon - RLon, centerLon + RLon ];
     NSPredicate *lonPredicate2 = [NSPredicate
-                                  predicateWithFormat:@" (longtitude > %f) AND (longtitude < %f)",
-                                  180 + centerLon - RLon, 180 + centerLon + RLon ];
+                                  predicateWithFormat:@" longtitude > %f ",
+                                  180 + centerLon - RLon ];
     NSPredicate *lonPredicate3 = [NSPredicate
-                                  predicateWithFormat:@" (longtitude > %f) AND (longtitude < %f)",
-                                  -180 + centerLon - RLon, -180 + centerLon + RLon ];
+                                  predicateWithFormat:@" longtitude < %f ",
+                                  -180 + centerLon + RLon ];
     NSPredicate *lonPredicate = [NSCompoundPredicate
                                  orPredicateWithSubpredicates: [NSArray
                                                                 arrayWithObjects:
