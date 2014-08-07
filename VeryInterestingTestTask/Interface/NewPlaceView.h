@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Place;
+
 @interface NewPlaceView : UITableViewController
 
+
+@property (nonatomic,retain) Place *place;
 
 @end

@@ -17,6 +17,8 @@
 		A31B662B1979AE1100CBCEE3 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66281979AE1100CBCEE3 /* AppSettings.m */; };
 		A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */; };
 		A34074261990DFD300AC9D07 /* GetLocationByMapPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34074251990DFD300AC9D07 /* GetLocationByMapPinView.m */; };
+		A340742C19931C8800AC9D07 /* GetLocationByGeocoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A340742B19931C8800AC9D07 /* GetLocationByGeocoding.m */; };
+		A340743019936E3900AC9D07 /* Vacation_travel-08-512.png in Resources */ = {isa = PBXBuildFile; fileRef = A340742F19936E3900AC9D07 /* Vacation_travel-08-512.png */; };
 		A344D3AE1932D391007C6D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AD1932D391007C6D72 /* Foundation.framework */; };
 		A344D3B01932D391007C6D72 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AF1932D391007C6D72 /* CoreGraphics.framework */; };
 		A344D3B21932D391007C6D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3B11932D391007C6D72 /* UIKit.framework */; };
@@ -76,6 +78,9 @@
 		A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AppSettings+AppSettingsCategory.m"; path = "DataModel/AppSettings+AppSettingsCategory.m"; sourceTree = "<group>"; };
 		A34074241990DFD300AC9D07 /* GetLocationByMapPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocationByMapPinView.h; path = Interface/GetLocationByMapPinView.h; sourceTree = "<group>"; };
 		A34074251990DFD300AC9D07 /* GetLocationByMapPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLocationByMapPinView.m; path = Interface/GetLocationByMapPinView.m; sourceTree = "<group>"; };
+		A340742A19931C8800AC9D07 /* GetLocationByGeocoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocationByGeocoding.h; path = Interface/GetLocationByGeocoding.h; sourceTree = "<group>"; };
+		A340742B19931C8800AC9D07 /* GetLocationByGeocoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLocationByGeocoding.m; path = Interface/GetLocationByGeocoding.m; sourceTree = "<group>"; };
+		A340742F19936E3900AC9D07 /* Vacation_travel-08-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vacation_travel-08-512.png"; sourceTree = "<group>"; };
 		A344D3AA1932D391007C6D72 /* VeryInterestingTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeryInterestingTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A344D3AD1932D391007C6D72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A344D3AF1932D391007C6D72 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -143,6 +148,7 @@
 			children = (
 				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
 				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
+				A340742919931C6300AC9D07 /* GetLocationByGeocodingView */,
 				A31B661D19799CF700CBCEE3 /* InitialDownloaderView */,
 				A3407427199314E700AC9D07 /* GetLocationByMapPinView */,
 				A3407428199314FB00AC9D07 /* NewPlaceView */,
@@ -187,6 +193,7 @@
 		A31B66091979877100CBCEE3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A340742F19936E3900AC9D07 /* Vacation_travel-08-512.png */,
 				A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */,
 				A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */,
 				A3E2D413197CC16700C980F1 /* no_photo.jpg */,
@@ -261,6 +268,15 @@
 				A3BB5D101982348C00ECD517 /* NewPlaceView.m */,
 			);
 			name = NewPlaceView;
+			sourceTree = "<group>";
+		};
+		A340742919931C6300AC9D07 /* GetLocationByGeocodingView */ = {
+			isa = PBXGroup;
+			children = (
+				A340742A19931C8800AC9D07 /* GetLocationByGeocoding.h */,
+				A340742B19931C8800AC9D07 /* GetLocationByGeocoding.m */,
+			);
+			name = GetLocationByGeocodingView;
 			sourceTree = "<group>";
 		};
 		A344D3A11932D391007C6D72 = {
@@ -428,6 +444,7 @@
 				A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */,
 				A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */,
 				A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */,
+				A340743019936E3900AC9D07 /* Vacation_travel-08-512.png in Resources */,
 				A344D3C41932D391007C6D72 /* Main_iPad.storyboard in Resources */,
 				A3E2D417197CDAE800C980F1 /* disclosure_indicator_down.jpg in Resources */,
 				A344D3C91932D391007C6D72 /* Images.xcassets in Resources */,
@@ -453,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A31B661B19799C8000CBCEE3 /* CitiesListView.m in Sources */,
+				A340742C19931C8800AC9D07 /* GetLocationByGeocoding.m in Sources */,
 				A3C175EF197E4D4A007E6B39 /* FilterPopupView.m in Sources */,
 				A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */,
 				A3F30C6C197A5FB20004999E /* CitySectionHeaderView.m in Sources */,

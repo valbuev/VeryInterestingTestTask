@@ -17,6 +17,7 @@
 @end
 
 @implementation GetLocationByMapPinView
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

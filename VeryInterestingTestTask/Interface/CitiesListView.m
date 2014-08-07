@@ -356,6 +356,12 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     } else if ( [[segue identifier] isEqualToString:@"NewPlace"] ) {
         //NewPlaceView *newPlaceView = (NewPlaceView *) segue.destinationViewController;
     }
+    else if ( [[segue identifier] isEqualToString:@"NewPlaceFromCell"] ) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        Place *place = [controller objectAtIndexPath:indexPath];
+        NewPlaceView *newPlaceView = segue.destinationViewController;
+        newPlaceView.place = place;
+    }
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
@@ -555,40 +561,13 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
                     if( ![downloadPhotos containsObject:photo]){
                         return;
                     }
-                    NSFileManager *fileManager = [NSFileManager defaultManager];
-                    
-                    NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-                    NSURL *documentsDirectory = [urls objectAtIndex:0];
                     
                     NSString *imageName = [url lastPathComponent];
-                    //NSLog(@"imageName : %@",imageName);
                     
-                    if( ! ( !imageName || [imageName isEqualToString:@""] )  ){
-                        NSURL *destinationUrl = [documentsDirectory URLByAppendingPathComponent:imageName];
-                        NSURL *thumbnailDestinationUrl = [documentsDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"thumbnail_%@", imageName]];
-                        NSError *fileManagerError;
-                        
-                        [fileManager removeItemAtURL:destinationUrl error:NULL];
-                        [fileManager copyItemAtURL:location toURL:destinationUrl error:&fileManagerError];
-                        
-                        if(fileManagerError == nil){
-                            
-                            [self saveThumbnailOfImage: imageName originalImagePath: destinationUrl.path
-                                         thumbnailPath: thumbnailDestinationUrl.path];
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                if( ![downloadPhotos containsObject:photo] )
-                                    return;
-                                photo.filePath = destinationUrl.path;
-                                photo.thumbnail_filePath = thumbnailDestinationUrl.path;
-                                [self saveContext];
-                            });
-                        }
-                        else{
-                            NSLog(@"fileManagerError: %@",fileManagerError.localizedDescription);
-                        }
-                    }
+                    [Photo savePhotoAndItsThumbnail:photo fromLocation:location imageName:imageName];
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [self saveContext];
                         if( ![downloadPhotos containsObject:photo] )
                             return;
                         [downloadPhotos removeObject:photo];
@@ -597,22 +576,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
                 }] resume];
 }
 
-- (void) saveThumbnailOfImage: (NSString *) imageName originalImagePath: (NSString *) imagePath thumbnailPath: (NSString *) thumbnailPath{
-    UIImage *originalImage = [UIImage imageWithContentsOfFile:imagePath];
-    CGSize destinationSize = CGSizeMake(100, 100);
-    UIGraphicsBeginImageContext(destinationSize);
-    [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
-    imageType = [imageType lowercaseString];
-    if([imageType isEqualToString:@"jpg"]){
-        [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailPath atomically:YES];
-    }
-    else if ([imageType isEqualToString:@"png"]){
-        [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:YES];
-    }
-}
+
 
 #pragma mark Location Manager
 

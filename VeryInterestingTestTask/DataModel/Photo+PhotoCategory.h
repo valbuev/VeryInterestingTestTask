@@ -13,4 +13,6 @@
 // Creates new Photo object with url_str and place relationShip for "place"
 + (Photo *) newPhotoWithUrl:(NSString *) url_str forPlace:(Place *) place MOC:(NSManagedObjectContext *) context;
 
++ (void) savePhotoAndItsThumbnail:(Photo *) photo fromLocation: (NSURL *) location imageName:(NSString *) imageName;
+
 @end
