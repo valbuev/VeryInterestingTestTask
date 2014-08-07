@@ -10,8 +10,12 @@
 #import "AppDelegate.h"
 
 #import "Place+PlaceCategory.h"
+#import "GetLocationByMapPinView.h"
 
 @interface NewPlaceView ()
+<GetLoactionByMapPinViewDelegate>{
+    UIPopoverController *localPopover;
+}
 
 @property (nonatomic,retain) NSManagedObjectContext *context;
 
@@ -19,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLatitude;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldLongtitude;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldCityName;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellLatitudeLongitude;
 
 @end
 
@@ -95,5 +100,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)btnGetLocationByGeocodingClicked:(id)sender {
+}
+- (IBAction)btnGetLocationByDroppingMapPinClicked:(id)sender {
+    
+    GetLocationByMapPinView *view = [self.storyboard instantiateViewControllerWithIdentifier:@"MapView"];
+    view.delegate = self;
+    localPopover = [[UIPopoverController alloc] initWithContentViewController:view];
+    [localPopover presentPopoverFromRect: self.cellLatitudeLongitude.bounds
+                                  inView: self.cellLatitudeLongitude.contentView
+                permittedArrowDirections: UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp
+                                animated:YES ];
+}
+
+#pragma mark GetLoactionByMapPinViewDelegate
+- (void)GetLoactionByMapPinView:(GetLocationByMapPinView *)view didChangePinLatitude:(double)latitude longitude:(double)longitude {
+    self.textFieldLatitude.text = [[NSNumber numberWithDouble: latitude] stringValue];
+    self.textFieldLongtitude.text = [[NSNumber numberWithDouble: longitude] stringValue];
+}
 
 @end

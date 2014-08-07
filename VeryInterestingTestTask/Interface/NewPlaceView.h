@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewPlaceView : UIViewController
+@interface NewPlaceView : UITableViewController
 
 
 @end

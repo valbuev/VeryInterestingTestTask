@@ -16,6 +16,7 @@
 		A31B662519799DC500CBCEE3 /* PlaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662419799DC500CBCEE3 /* PlaceTableViewCell.m */; };
 		A31B662B1979AE1100CBCEE3 /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B66281979AE1100CBCEE3 /* AppSettings.m */; };
 		A31B662C1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */; };
+		A34074261990DFD300AC9D07 /* GetLocationByMapPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34074251990DFD300AC9D07 /* GetLocationByMapPinView.m */; };
 		A344D3AE1932D391007C6D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AD1932D391007C6D72 /* Foundation.framework */; };
 		A344D3B01932D391007C6D72 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3AF1932D391007C6D72 /* CoreGraphics.framework */; };
 		A344D3B21932D391007C6D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A344D3B11932D391007C6D72 /* UIKit.framework */; };
@@ -73,6 +74,8 @@
 		A31B66281979AE1100CBCEE3 /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppSettings.m; path = DataModel/AppSettings.m; sourceTree = "<group>"; };
 		A31B66291979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AppSettings+AppSettingsCategory.h"; path = "DataModel/AppSettings+AppSettingsCategory.h"; sourceTree = "<group>"; };
 		A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AppSettings+AppSettingsCategory.m"; path = "DataModel/AppSettings+AppSettingsCategory.m"; sourceTree = "<group>"; };
+		A34074241990DFD300AC9D07 /* GetLocationByMapPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocationByMapPinView.h; path = Interface/GetLocationByMapPinView.h; sourceTree = "<group>"; };
+		A34074251990DFD300AC9D07 /* GetLocationByMapPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetLocationByMapPinView.m; path = Interface/GetLocationByMapPinView.m; sourceTree = "<group>"; };
 		A344D3AA1932D391007C6D72 /* VeryInterestingTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeryInterestingTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A344D3AD1932D391007C6D72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A344D3AF1932D391007C6D72 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -140,9 +143,10 @@
 			children = (
 				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
 				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
+				A31B661D19799CF700CBCEE3 /* InitialDownloaderView */,
+				A3407427199314E700AC9D07 /* GetLocationByMapPinView */,
+				A3407428199314FB00AC9D07 /* NewPlaceView */,
 				A31B661C19799CE900CBCEE3 /* CitiesListView */,
-				A3BB5D0F1982348C00ECD517 /* NewPlaceView.h */,
-				A3BB5D101982348C00ECD517 /* NewPlaceView.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -193,12 +197,11 @@
 		A31B661C19799CE900CBCEE3 /* CitiesListView */ = {
 			isa = PBXGroup;
 			children = (
-				A3C175EC197E4CF1007E6B39 /* FilterPopupView */,
 				A31B661919799C8000CBCEE3 /* CitiesListView.h */,
 				A31B661A19799C8000CBCEE3 /* CitiesListView.m */,
+				A3C175EC197E4CF1007E6B39 /* FilterPopupView */,
 				A31B661F19799D4000CBCEE3 /* PlaceTableViewCell */,
 				A31B661E19799D0E00CBCEE3 /* CitySectionHeaderView */,
-				A31B661D19799CF700CBCEE3 /* InitialDownloaderView */,
 			);
 			name = CitiesListView;
 			sourceTree = "<group>";
@@ -240,6 +243,24 @@
 				A31B662A1979AE1100CBCEE3 /* AppSettings+AppSettingsCategory.m */,
 			);
 			name = AppSettings;
+			sourceTree = "<group>";
+		};
+		A3407427199314E700AC9D07 /* GetLocationByMapPinView */ = {
+			isa = PBXGroup;
+			children = (
+				A34074241990DFD300AC9D07 /* GetLocationByMapPinView.h */,
+				A34074251990DFD300AC9D07 /* GetLocationByMapPinView.m */,
+			);
+			name = GetLocationByMapPinView;
+			sourceTree = "<group>";
+		};
+		A3407428199314FB00AC9D07 /* NewPlaceView */ = {
+			isa = PBXGroup;
+			children = (
+				A3BB5D0F1982348C00ECD517 /* NewPlaceView.h */,
+				A3BB5D101982348C00ECD517 /* NewPlaceView.m */,
+			);
+			name = NewPlaceView;
 			sourceTree = "<group>";
 		};
 		A344D3A11932D391007C6D72 = {
@@ -439,6 +460,7 @@
 				A31B660219797EBF00CBCEE3 /* Photo+PhotoCategory.m in Sources */,
 				A3BB5D111982348C00ECD517 /* NewPlaceView.m in Sources */,
 				A31B65F619797E4B00CBCEE3 /* Photo.m in Sources */,
+				A34074261990DFD300AC9D07 /* GetLocationByMapPinView.m in Sources */,
 				A31B65F319797E4B00CBCEE3 /* Place.m in Sources */,
 				A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */,
 				A31B661819799C0800CBCEE3 /* InitialDownloaderView.m in Sources */,
