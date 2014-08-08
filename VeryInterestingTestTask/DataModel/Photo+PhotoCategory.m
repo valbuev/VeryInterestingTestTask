@@ -38,6 +38,7 @@
         
         [fileManager removeItemAtURL:destinationUrl error:NULL];
         [fileManager copyItemAtURL:location toURL:destinationUrl error:&fileManagerError];
+        [fileManager removeItemAtURL: location error: NULL];
         
         if(fileManagerError == nil){
             
@@ -66,10 +67,10 @@
     NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
     imageType = [imageType lowercaseString];
     if([imageType isEqualToString:@"jpg"]){
-        [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailPath atomically:YES];
+        [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailPath atomically:NO];
     }
     else if ([imageType isEqualToString:@"png"]){
-        [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:YES];
+        [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:NO];
     }
 }
 

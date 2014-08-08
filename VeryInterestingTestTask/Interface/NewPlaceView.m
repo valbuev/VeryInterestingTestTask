@@ -67,15 +67,32 @@
         place.city = [cityName copy];
     }
     
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
     for (UIImage *image in addedPhotos) {
+        NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *documentsDirectory = [urls objectAtIndex:0];
+        NSString *uniqueName = [[NSProcessInfo processInfo] globallyUniqueString];
+        NSString *fileName = [NSString stringWithFormat:@"image%@.jpg",uniqueName];
+        NSLog(@"%@",fileName);
+        NSURL *filePath = [documentsDirectory URLByAppendingPathComponent:fileName];
         
+        // Convert UIImage object into NSData (a wrapper for a stream of bytes) formatted according to PNG spec
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        [imageData writeToURL:filePath atomically:YES];
+        uniqueName = [[NSProcessInfo processInfo] globallyUniqueString];
+        fileName = [NSString stringWithFormat:@"image%@.png",uniqueName];
+        NSLog(@"%@",fileName);
+        Photo *photo = [Photo newPhotoWithUrl:@"" forPlace: place MOC: self.context];
+        [Photo savePhotoAndItsThumbnail: photo
+                           fromLocation: filePath
+                              imageName: fileName];
     }
     
-    NSLog(@"before context saving");
-    if( [self.context hasChanges] && ![self.context save:nil])
-        NSLog(@"has changes but cant save");
-    //});
-    NSLog(@"before popviewControllerAnimated");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if( [self.context hasChanges] && ![self.context save:nil])
+            NSLog(@"has changes but cant save");
+    });
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -91,10 +108,10 @@
     if( _context )
         return _context;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSPersistentStoreCoordinator *coordinator = [appDelegate persistentStoreCoordinator];
-    _context = [[NSManagedObjectContext alloc] init];
-    [_context setPersistentStoreCoordinator:coordinator];
-    //_context = [appDelegate managedObjectContext];
+    //NSPersistentStoreCoordinator *coordinator = [appDelegate persistentStoreCoordinator];
+    //_context = [[NSManagedObjectContext alloc] init];
+    //[_context setPersistentStoreCoordinator:coordinator];
+    _context = [appDelegate managedObjectContext];
     return _context;
 }
 
@@ -274,6 +291,7 @@
             [self getPhotoFromGalery];
             break;
         case 2:
+            [self getPhotoFromCamera];
             break;
             
         default:
@@ -282,9 +300,21 @@
 }
 
 - (void) getPhotoFromGalery {
-    if( [UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum] ){
+    if( [UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary] ){
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        picker.allowsEditing = NO;
+        picker.delegate = self;
+        
+        [self presentViewController: picker animated: YES completion:nil];
+    }
+}
+
+- (void) getPhotoFromCamera {
+    if( [UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera] ){
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         
         picker.allowsEditing = NO;
         picker.delegate = self;
