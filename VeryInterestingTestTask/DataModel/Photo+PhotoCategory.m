@@ -59,7 +59,10 @@
 
 + (void) saveThumbnailOfImage: (NSString *) imageName originalImagePath: (NSString *) imagePath thumbnailPath: (NSString *) thumbnailPath{
     UIImage *originalImage = [UIImage imageWithContentsOfFile:imagePath];
-    CGSize destinationSize = CGSizeMake(100, 100);
+    double stretchingCoeff = 1;
+    if(originalImage.size.width > 0)
+        stretchingCoeff = (originalImage.size.height * 1.0) / originalImage.size.width;
+    CGSize destinationSize = CGSizeMake( (int)(200*stretchingCoeff) , 200 );
     UIGraphicsBeginImageContext(destinationSize);
     [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
