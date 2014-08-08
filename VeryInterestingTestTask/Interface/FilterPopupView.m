@@ -18,18 +18,11 @@
 @synthesize delegate;
 @synthesize locationFilterRadius;
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if( self ) {
-        //self.locationFilterRadius = LocationFilterRadiusNone;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    // choose initial location filter radius
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:(self.locationFilterRadius - LocationFilterRadiusNone) inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
 }
 
@@ -42,6 +35,7 @@
     
     NSInteger row = indexPath.row;
     
+    // notificate delegate about changes
     if( self.delegate ){
         [self.delegate setLocationFilterRadius: (LocationFilterRadiusNone + row)];
     }

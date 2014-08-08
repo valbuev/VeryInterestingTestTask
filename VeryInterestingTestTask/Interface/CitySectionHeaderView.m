@@ -18,6 +18,7 @@
 
 - (void)setIsSectionHidden:(Boolean)isSectionHidden{
     _isSectionHidden = isSectionHidden;
+    // set image for current state of section
     if(isSectionHidden == YES){
         self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_right.jpg"];
     }
@@ -37,7 +38,9 @@
 }
 
 - (IBAction)btnToggleClicked:(id)sender {
+    // User tapped view, section will be hidden or shown
     self.isSectionHidden = !self.isSectionHidden;
+    // say delegate about the current state was changed
     if(self.delegate){
         [self.delegate citySectionHeaderView:self didHidden:self.isSectionHidden];
     }

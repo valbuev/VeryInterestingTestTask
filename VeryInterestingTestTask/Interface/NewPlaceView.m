@@ -271,7 +271,7 @@
 }
 
 - (IBAction)btnBackPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self askUserAboutSavingBeforeQuit];
 }
 
 

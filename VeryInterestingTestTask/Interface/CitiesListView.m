@@ -530,6 +530,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     if( !session ){
         NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         sessionConfig.HTTPMaximumConnectionsPerHost = 3;
+        sessionConfig.timeoutIntervalForRequest = 0;
         session = [NSURLSession sessionWithConfiguration:sessionConfig];
     }
     return session;
