@@ -38,6 +38,7 @@
 		A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A344D3EA1932DF44007C6D72 /* Localizable.strings */; };
 		A3B1E92919889D8900B58E9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B1E92819889D8900B58E9E /* CoreLocation.framework */; };
 		A3BB5D111982348C00ECD517 /* NewPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BB5D101982348C00ECD517 /* NewPlaceView.m */; };
+		A3BF13F1199B73D500BF4FDB /* FulScreenImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BF13F0199B73D500BF4FDB /* FulScreenImageView.m */; };
 		A3C175EF197E4D4A007E6B39 /* FilterPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */; };
 		A3C175F11980A0FD007E6B39 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C175F01980A0FD007E6B39 /* MapKit.framework */; };
 		A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D413197CC16700C980F1 /* no_photo.jpg */; };
@@ -105,6 +106,8 @@
 		A3B1E92819889D8900B58E9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A3BB5D0F1982348C00ECD517 /* NewPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewPlaceView.h; path = Interface/NewPlaceView.h; sourceTree = "<group>"; };
 		A3BB5D101982348C00ECD517 /* NewPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewPlaceView.m; path = Interface/NewPlaceView.m; sourceTree = "<group>"; };
+		A3BF13EF199B73D500BF4FDB /* FullScreenImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullScreenImageView.h; path = Interface/FullScreenImageView.h; sourceTree = "<group>"; };
+		A3BF13F0199B73D500BF4FDB /* FulScreenImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FulScreenImageView.m; path = Interface/FulScreenImageView.m; sourceTree = "<group>"; };
 		A3C175ED197E4D4A007E6B39 /* FilterPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterPopupView.h; path = Interface/FilterPopupView.h; sourceTree = "<group>"; };
 		A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterPopupView.m; path = Interface/FilterPopupView.m; sourceTree = "<group>"; };
 		A3C175F01980A0FD007E6B39 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -153,6 +156,8 @@
 				A3407427199314E700AC9D07 /* GetLocationByMapPinView */,
 				A3407428199314FB00AC9D07 /* NewPlaceView */,
 				A31B661C19799CE900CBCEE3 /* CitiesListView */,
+				A3BF13EF199B73D500BF4FDB /* FullScreenImageView.h */,
+				A3BF13F0199B73D500BF4FDB /* FulScreenImageView.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				A31B662B1979AE1100CBCEE3 /* AppSettings.m in Sources */,
 				A344D3E91932D69A007C6D72 /* PlacesModel.xcdatamodeld in Sources */,
 				A344D3BE1932D391007C6D72 /* AppDelegate.m in Sources */,
+				A3BF13F1199B73D500BF4FDB /* FulScreenImageView.m in Sources */,
 				A344D3BA1932D391007C6D72 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

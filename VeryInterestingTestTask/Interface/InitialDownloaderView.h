@@ -6,11 +6,17 @@
 //  Copyright (c) 2014 bva. All rights reserved.
 //
 
+//
+//  This view is used for downloading initial data and save it into CoreData storage
+//
+
 #import <UIKit/UIKit.h>
 
 @class InitialDownloaderView;
-@protocol InitialDownloaderViewDelegate
 
+//
+@protocol InitialDownloaderViewDelegate
+//  Data has been downloaded
 - (void)  initialDownloaderViewShouldBeDisappeared:(InitialDownloaderView *) view;
 
 @end
@@ -23,7 +29,7 @@
 @property (nonatomic,retain) NSManagedObjectContext *context;
 @property (nonatomic, weak) id <InitialDownloaderViewDelegate> delegate;
 
-
+// User wants to stop downloading
 - (IBAction)btnStopDownloadingClicked:(id)sender;
 
 @end

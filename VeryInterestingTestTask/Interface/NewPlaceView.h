@@ -6,12 +6,15 @@
 //  Copyright (c) 2014 bva. All rights reserved.
 //
 
+//
+//  Place -presenter and -editor.
+//
+
 #import <UIKit/UIKit.h>
 
 @class Place;
 
 @interface NewPlaceView : UITableViewController
-
 
 @property (nonatomic,retain) Place *place;
 

@@ -13,6 +13,7 @@
 <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textFieldAddress;
+// indicator of process
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
 @property (retain, nonatomic) CLGeocoder *geocoder;
@@ -21,15 +22,6 @@
 
 @implementation GetLocationByGeocoding
 @synthesize delegate;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -56,35 +48,45 @@
 
 #pragma mark UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+// User entered address
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // init geocoder
     if ( self.geocoder == nil ) {
         self.geocoder = [[CLGeocoder alloc] init];
     }
     NSString *address = self.textFieldAddress.text;
     
+    // start animating process
     [self.indicator startAnimating];
     
+    // start geocoding
     [self.geocoder geocodeAddressString: address
                       completionHandler: ^(NSArray *placemarks, NSError *error){
                           
+                          // stop animating process
                           [self.indicator stopAnimating];
                           
+                          // success
                           if(placemarks.count > 0 && error == nil) {
                               CLPlacemark *placemark = [placemarks firstObject];
                               if( self.delegate != nil ) {
                                   CLLocationCoordinate2D coordinate = placemark.location.coordinate;
+                                  // notificate delegate
                                   [self.delegate GetLocationByGeocoding:self
                                                       didChangeLatitude:coordinate.latitude
                                                               longitude:coordinate.longitude];
                               }
                           }
+                          // error
                           else {
                               if ( self.delegate != nil ) {
+                                  // notificate delegate
                                   [self.delegate GetLocationByGeocoding: self didFinishGeocodingWithError: error];
                               }
+                              // Say user about error
                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Can't find this address.." delegate:nil cancelButtonTitle:@":(" otherButtonTitles: nil];
                               [alertView show];
-                              NSLog(@"\nerror: %@ \nplacemarks.count = %d",error.localizedDescription, placemarks.count );
                           }
     }];
     return YES;

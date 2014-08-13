@@ -18,7 +18,7 @@
 @synthesize delegate;
 @synthesize locationFilterRadius;
 
-- (void)viewDidLoad
+- (void)viewDidLoad12
 {
     [super viewDidLoad];
     
@@ -37,7 +37,7 @@
     
     // notificate delegate about changes
     if( self.delegate ){
-        [self.delegate setLocationFilterRadius: (LocationFilterRadiusNone + row)];
+        [self.delegate setLocationFilterRadius: (LocationFilterRadiusNone + (int)row)];
     }
 }
 
