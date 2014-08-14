@@ -151,13 +151,12 @@
 			children = (
 				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
 				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
+				A3ECE170199C502E00A06092 /* FullScreenImageView */,
 				A340742919931C6300AC9D07 /* GetLocationByGeocodingView */,
 				A31B661D19799CF700CBCEE3 /* InitialDownloaderView */,
 				A3407427199314E700AC9D07 /* GetLocationByMapPinView */,
 				A3407428199314FB00AC9D07 /* NewPlaceView */,
 				A31B661C19799CE900CBCEE3 /* CitiesListView */,
-				A3BF13EF199B73D500BF4FDB /* FullScreenImageView.h */,
-				A3BF13F0199B73D500BF4FDB /* FulScreenImageView.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -368,6 +367,15 @@
 				A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */,
 			);
 			name = FilterPopupView;
+			sourceTree = "<group>";
+		};
+		A3ECE170199C502E00A06092 /* FullScreenImageView */ = {
+			isa = PBXGroup;
+			children = (
+				A3BF13EF199B73D500BF4FDB /* FullScreenImageView.h */,
+				A3BF13F0199B73D500BF4FDB /* FulScreenImageView.m */,
+			);
+			name = FullScreenImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -10,4 +10,6 @@
 
 @interface FullScreenImageView : UIViewController
 
+@property (nonatomic,retain) UIImage *image;
+
 @end

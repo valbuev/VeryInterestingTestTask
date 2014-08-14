@@ -327,7 +327,7 @@
                                                             </constraints>
                                                             <size key="customSize" width="426" height="426"/>
                                                             <connections>
-                                                                <segue destination="UUN-A6-Lu2" kind="push" id="jZZ-Vf-FWJ"/>
+                                                                <segue destination="UUN-A6-Lu2" kind="push" identifier="FullScreenImage" id="jZZ-Vf-FWJ"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -662,9 +662,12 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="3PD-fb-vea">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="UUN-A6-Lu2" id="u3B-aM-OLx"/>
+                                </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="3PD-fb-vea" secondAttribute="bottom" id="I3N-Cf-Juq"/>
                             <constraint firstItem="3PD-fb-vea" firstAttribute="leading" secondItem="fUh-bS-Uk0" secondAttribute="leading" id="UG0-5N-oFX"/>

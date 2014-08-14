@@ -16,6 +16,7 @@
 #import "GetLocationByMapPinView.h"
 #import "GetLocationByGeocoding.h"
 #import "Photo+PhotoCategory.h"
+#import "FullScreenImageView.h"
 
 @interface NewPlaceView ()
 <GetLoactionByMapPinViewDelegate, GetLocationByGeocodingDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>{
@@ -123,108 +124,65 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark UI-actions
+#pragma mark navigation
 
-// User wants return back
-- (IBAction)btnBackPressed:(id)sender {
-    [self askUserAboutSavingBeforeQuit];
-}
-
-// Validates Place-data from ui-inputs
-// Returns YES if data is valid
-- (Boolean) validatePlaceData {
-    // 
-    NSString *placeName = self.textFieldName.text;
-    NSString *latitude = self.textFieldLatitude.text;
-    NSString *longitude = self.textFieldLongtitude.text;
-    //NSString *description = self.textViewDescription.text;
-    if ( [placeName isEqualToString:@""] ) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Location name is incorrect!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        return NO;
-    }
-    if( [latitude isEqualToString:@""] || [longitude isEqualToString:@""] ) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Get latitude and longitude by geocoding or by dropping map pin" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        return NO;
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ( [identifier isEqualToString:@"FullScreenImage"] ) {
+        if( collectionViewEditMode == YES )
+            return NO;
+        NSIndexPath *indexPath = [self.photosCollectionView.indexPathsForSelectedItems firstObject];
+        if( indexPath.row < placePhotos.count ) {
+            Photo *photo = [placePhotos objectAtIndex: indexPath.row];
+            if( [photo.filePath isEqualToString:@""] || photo.filePath == nil )
+                return NO;
+            else
+                return YES;
+        }
+        else {
+            return YES;
+        }
     }
     return YES;
 }
 
-// Saves place-data
-- (void) savePlaceData {
-    // text data
-    NSString *placeName = self.textFieldName.text;
-    NSNumber *latitude = [NSNumber numberWithDouble: self.textFieldLatitude.text.doubleValue];
-    NSNumber *longitude = [NSNumber numberWithDouble: self.textFieldLongtitude.text.doubleValue];
-    NSString *cityName = self.textFieldCityName.text;
-    NSString *description = self.textViewDescription.text;
-    
-    Place *place;
-    // if it is a new place, then create it
-    if( !self.place ){
-        place = [Place newPlaceWithName: placeName
-                                   city: cityName
-                            description: @""
-                               latitude: latitude
-                             longtitude: longitude
-                                    MOC: self.context];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ( [segue.identifier isEqualToString:@"FullScreenImage"] ) {
+        NSIndexPath *indexPath = [self.photosCollectionView.indexPathsForSelectedItems firstObject];
+        UIImage *image;
+        if( indexPath.row < placePhotos.count ) {
+            Photo *photo = [placePhotos objectAtIndex: indexPath.row];
+            image = [UIImage imageWithContentsOfFile: photo.filePath];
+        }
+        else {
+            image = [addedPhotos objectAtIndex: indexPath.row - placePhotos.count ];
+        }
+        FullScreenImageView *view = segue.destinationViewController;
+        view.image = image;
     }
-    // else set attributes of current place
+}
+
+#pragma mark UI-actions
+
+// User wants return back
+- (IBAction)btnBackPressed:(id)sender {
+    if( [self isDataChanged] ){
+        [self askUserAboutSavingBeforeQuit];
+    }
     else {
-        place = self.place;
-        place.name = [placeName copy];
-        place.latitude = [latitude copy];
-        place.longtitude = [longitude copy];
-        place.city = [cityName copy];
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    place.placeDescription = [description copy];
-    
-    // save images
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    // images from galary or camera
-    for (UIImage *image in addedPhotos) {
-        
-        // give image unique name and save it in document directory
-        NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-        NSURL *documentsDirectory = [urls objectAtIndex:0];
-        NSString *uniqueName = [[NSProcessInfo processInfo] globallyUniqueString];
-        NSString *fileName = [NSString stringWithFormat:@"image%@.jpg",uniqueName];
-        NSURL *filePath = [documentsDirectory URLByAppendingPathComponent:fileName];
-        NSData *imageData = UIImageJPEGRepresentation(image, 1);
-        [imageData writeToURL:filePath atomically:YES];
-        
-        // give new unique name to give it to Photo method savePhotoAndItsThumbnail
-        uniqueName = [[NSProcessInfo processInfo] globallyUniqueString];
-        fileName = [NSString stringWithFormat:@"image%@.png",uniqueName];
-        Photo *photo = [Photo newPhotoWithUrl:@"" forPlace: place MOC: self.context];
-        [Photo savePhotoAndItsThumbnail: photo
-                           fromLocation: filePath
-                              imageName: fileName];
-    }
-    
-    // remove deleted photos
-    [place removePhotos:[NSSet setWithArray:deletedPlacePhotos]];
-    for(Photo *photo in deletedPlacePhotos){
-        [self.context deleteObject:photo];
-    }
-    
-    // save context
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if( [self.context hasChanges] && ![self.context save:nil])
-            NSLog(@"has changes but cant save");
-    });
-    
 }
 
 // User want to save data
 - (IBAction)btnSaveClicked:(id)sender {
     
     //  save and return If data is valid
-    if ( [self validatePlaceData] )
-    {
-        [self savePlaceData];
-        [self.navigationController popViewControllerAnimated:YES];
+    if ( [self isDataChanged]) {
+        if ( [self validatePlaceData] )
+        {
+            [self savePlaceData];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -577,5 +535,115 @@
         }
     }
 }
+
+# pragma mark DATA
+
+// Validates Place-data from ui-inputs
+// Returns YES if data is valid
+- (Boolean) validatePlaceData {
+    //
+    NSString *placeName = self.textFieldName.text;
+    NSString *latitude = self.textFieldLatitude.text;
+    NSString *longitude = self.textFieldLongtitude.text;
+    //NSString *description = self.textViewDescription.text;
+    if ( [placeName isEqualToString:@""] ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Location name is incorrect!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    }
+    if( [latitude isEqualToString:@""] || [longitude isEqualToString:@""] ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Get latitude and longitude by geocoding or by dropping map pin" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    }
+    return YES;
+}
+
+// Saves place-data
+- (void) savePlaceData {
+    // text data
+    NSString *placeName = self.textFieldName.text;
+    NSNumber *latitude = [NSNumber numberWithDouble: self.textFieldLatitude.text.doubleValue];
+    NSNumber *longitude = [NSNumber numberWithDouble: self.textFieldLongtitude.text.doubleValue];
+    NSString *cityName = self.textFieldCityName.text;
+    NSString *description = self.textViewDescription.text;
+    
+    Place *place;
+    // if it is a new place, then create it
+    if( !self.place ){
+        place = [Place newPlaceWithName: placeName
+                                   city: cityName
+                            description: @""
+                               latitude: latitude
+                             longtitude: longitude
+                                    MOC: self.context];
+    }
+    // else set attributes of current place
+    else {
+        place = self.place;
+        place.name = [placeName copy];
+        place.latitude = [latitude copy];
+        place.longtitude = [longitude copy];
+        place.city = [cityName copy];
+    }
+    place.placeDescription = [description copy];
+    
+    // save images
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // images from galary or camera
+    for (UIImage *image in addedPhotos) {
+        
+        // give image unique name and save it in document directory
+        NSArray *urls = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *documentsDirectory = [urls objectAtIndex:0];
+        NSString *uniqueName = [[NSProcessInfo processInfo] globallyUniqueString];
+        NSString *fileName = [NSString stringWithFormat:@"image%@.jpg",uniqueName];
+        NSURL *filePath = [documentsDirectory URLByAppendingPathComponent:fileName];
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        [imageData writeToURL:filePath atomically:YES];
+        
+        // give new unique name to give it to Photo method savePhotoAndItsThumbnail
+        uniqueName = [[NSProcessInfo processInfo] globallyUniqueString];
+        fileName = [NSString stringWithFormat:@"image%@.png",uniqueName];
+        Photo *photo = [Photo newPhotoWithUrl:@"" forPlace: place MOC: self.context];
+        [Photo savePhotoAndItsThumbnail: photo
+                           fromLocation: filePath
+                              imageName: fileName];
+    }
+    
+    // remove deleted photos
+    [place removePhotos:[NSSet setWithArray:deletedPlacePhotos]];
+    for(Photo *photo in deletedPlacePhotos){
+        [self.context deleteObject:photo];
+    }
+    
+    // save context
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if( [self.context hasChanges] && ![self.context save:nil])
+            NSLog(@"has changes but cant save");
+    });
+    
+}
+
+// returns NO if data has no changes, else returns YES
+- (BOOL) isDataChanged {
+    
+    // Photos
+    if( addedPhotos.count > 0
+       || deletedPlacePhotos.count > 0)
+        return YES;
+    
+    // Strings and numbers
+    if( ![self.textFieldName.text isEqualToString: self.place.name] ||
+       ![self.textFieldCityName.text isEqualToString: self.place.city] ||
+       ![self.textViewDescription.text isEqualToString: self.place.placeDescription] ||
+       self.textFieldLatitude.text.floatValue != self.place.latitude.floatValue ||
+       self.textFieldLongtitude.text.floatValue != self.place.longtitude.floatValue
+       )
+        return YES;
+    
+    return NO;
+}
+
 
 @end
