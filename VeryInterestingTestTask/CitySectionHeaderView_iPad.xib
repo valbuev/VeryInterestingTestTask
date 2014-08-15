@@ -18,7 +18,7 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosure_indicator_down.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-z1-iBD" userLabel="Image">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosure_indicator_down.png" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-z1-iBD" userLabel="Image">
                     <rect key="frame" x="737" y="0.0" width="44" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
@@ -53,6 +53,6 @@
         </view>
     </objects>
     <resources>
-        <image name="disclosure_indicator_down.jpg" width="50" height="50"/>
+        <image name="disclosure_indicator_down.png" width="50" height="50"/>
     </resources>
 </document>

@@ -20,10 +20,10 @@
     _isSectionHidden = isSectionHidden;
     // set image for current state of section
     if(isSectionHidden == YES){
-        self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_right.jpg"];
+        self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_right.png"];
     }
     else {
-        self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_down.jpg"];
+        self.imageViewHiddenIndicator.image = [UIImage imageNamed:@"disclosure_indicator_down.png"];
     }
 }
 

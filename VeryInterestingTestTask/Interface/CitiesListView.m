@@ -599,6 +599,7 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self dismissViewControllerAnimated:YES completion:nil];
         [self setFetchedResultsController];
+        [self initCLLocationManager];
     });
 }
 

@@ -42,9 +42,9 @@
 		A3C175EF197E4D4A007E6B39 /* FilterPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */; };
 		A3C175F11980A0FD007E6B39 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C175F01980A0FD007E6B39 /* MapKit.framework */; };
 		A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D413197CC16700C980F1 /* no_photo.jpg */; };
-		A3E2D417197CDAE800C980F1 /* disclosure_indicator_down.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */; };
-		A3E2D418197CDAE800C980F1 /* disclosure_indicator_right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */; };
 		A3ECE174199DBF2400A06092 /* UIPopoverController+iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECE173199DBF2400A06092 /* UIPopoverController+iPhone.m */; };
+		A3ECE177199E147D00A06092 /* disclosure_indicator_down.png in Resources */ = {isa = PBXBuildFile; fileRef = A3ECE175199E147D00A06092 /* disclosure_indicator_down.png */; };
+		A3ECE178199E147D00A06092 /* disclosure_indicator_right.png in Resources */ = {isa = PBXBuildFile; fileRef = A3ECE176199E147D00A06092 /* disclosure_indicator_right.png */; };
 		A3F30C6C197A5FB20004999E /* CitySectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */; };
 		A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */; };
 /* End PBXBuildFile section */
@@ -113,10 +113,10 @@
 		A3C175EE197E4D4A007E6B39 /* FilterPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterPopupView.m; path = Interface/FilterPopupView.m; sourceTree = "<group>"; };
 		A3C175F01980A0FD007E6B39 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A3E2D413197CC16700C980F1 /* no_photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_photo.jpg; sourceTree = "<group>"; };
-		A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disclosure_indicator_down.jpg; sourceTree = "<group>"; };
-		A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disclosure_indicator_right.jpg; sourceTree = "<group>"; };
 		A3ECE172199DBF2400A06092 /* UIPopoverController+iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopoverController+iPhone.h"; path = "Interface/UIPopoverController+iPhone.h"; sourceTree = "<group>"; };
 		A3ECE173199DBF2400A06092 /* UIPopoverController+iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPopoverController+iPhone.m"; path = "Interface/UIPopoverController+iPhone.m"; sourceTree = "<group>"; };
+		A3ECE175199E147D00A06092 /* disclosure_indicator_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure_indicator_down.png; sourceTree = "<group>"; };
+		A3ECE176199E147D00A06092 /* disclosure_indicator_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosure_indicator_right.png; sourceTree = "<group>"; };
 		A3F30C6A197A5FB20004999E /* CitySectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CitySectionHeaderView.h; path = Interface/CitySectionHeaderView.h; sourceTree = "<group>"; };
 		A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CitySectionHeaderView.m; path = Interface/CitySectionHeaderView.m; sourceTree = "<group>"; };
 		A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySectionHeaderView_iPad.xib; sourceTree = "<group>"; };
@@ -201,9 +201,9 @@
 		A31B66091979877100CBCEE3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A3ECE175199E147D00A06092 /* disclosure_indicator_down.png */,
+				A3ECE176199E147D00A06092 /* disclosure_indicator_right.png */,
 				A340742F19936E3900AC9D07 /* Vacation_travel-08-512.png */,
-				A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */,
-				A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */,
 				A3E2D413197CC16700C980F1 /* no_photo.jpg */,
 			);
 			name = Resources;
@@ -469,14 +469,14 @@
 			files = (
 				A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */,
 				A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */,
+				A3ECE177199E147D00A06092 /* disclosure_indicator_down.png in Resources */,
+				A3ECE178199E147D00A06092 /* disclosure_indicator_right.png in Resources */,
 				A344D3EB1932DF44007C6D72 /* Localizable.strings in Resources */,
 				A340743019936E3900AC9D07 /* Vacation_travel-08-512.png in Resources */,
 				A344D3C41932D391007C6D72 /* Main_iPad.storyboard in Resources */,
-				A3E2D417197CDAE800C980F1 /* disclosure_indicator_down.jpg in Resources */,
 				A344D3C91932D391007C6D72 /* Images.xcassets in Resources */,
 				A344D3C11932D391007C6D72 /* Main_iPhone.storyboard in Resources */,
 				A344D3B81932D391007C6D72 /* InfoPlist.strings in Resources */,
-				A3E2D418197CDAE800C980F1 /* disclosure_indicator_right.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
