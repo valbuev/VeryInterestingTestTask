@@ -25,6 +25,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic,retain) NSManagedObjectContext *context;
 @property (nonatomic, weak) id <InitialDownloaderViewDelegate> delegate;

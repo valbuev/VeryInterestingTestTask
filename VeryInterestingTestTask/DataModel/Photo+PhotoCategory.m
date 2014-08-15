@@ -84,10 +84,10 @@
     NSString * imageType = [imageName substringFromIndex:MAX((int)[imageName length]-3, 0)];
     imageType = [imageType lowercaseString];
     if([imageType isEqualToString:@"jpg"]){
-        [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailPath atomically:NO];
+        [UIImageJPEGRepresentation(newImage, 1.0) writeToFile:thumbnailPath atomically:YES];
     }
     else if ([imageType isEqualToString:@"png"]){
-        [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:NO];
+        [UIImagePNGRepresentation(newImage) writeToFile:thumbnailPath atomically:YES];
     }
 }
 

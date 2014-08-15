@@ -88,6 +88,8 @@
 - (void) startDownloading{
     NSURLSessionDownloadTask *task = [[self backgroundSession] downloadTaskWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/32448889/TetsTask/places_25_06.json"]];
     [task resume];
+    // start animating
+    [self.activityIndicator startAnimating];
 }
 
 // Downloading is completed
@@ -112,6 +114,7 @@
     }
     // call AppDelegate-completionHandler if needs
     [self callCompletionHandlerIfFinished];
+    
 }
 
 // Asks user does he want start downloading again
@@ -147,6 +150,8 @@
         if (count == 0) {
             // Change UI
             dispatch_async(dispatch_get_main_queue(), ^{
+                //stop animating
+                [self.activityIndicator stopAnimating];
                 self.progressView.progress = 1;
             });
             // call completionHandler

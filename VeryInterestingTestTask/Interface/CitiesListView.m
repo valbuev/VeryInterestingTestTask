@@ -255,8 +255,9 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         // setting photo reference of cell
         cell.photo = photo;
         
-        if([place.name isEqualToString:@"Calea Victoriei"])
-            NSLog(@"Cairo citadel\n photopath: %@ %@", photo.filePath, photo.thumbnail_filePath);
+        //if([place.name isEqualToString:@"Calea Victoriei"])
+            //NSLog(@"Cairo citadel\n photopath: %@ %@", photo.filePath, photo.thumbnail_filePath);
+        
         // if Photo does not have thumbnail, but has url, then add Photo to donload-stack
         if( ( photo.thumbnail_filePath == nil
            || [photo.thumbnail_filePath isEqualToString:@""] )
