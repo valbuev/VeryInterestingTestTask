@@ -44,6 +44,7 @@
 		A3E2D414197CC16700C980F1 /* no_photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D413197CC16700C980F1 /* no_photo.jpg */; };
 		A3E2D417197CDAE800C980F1 /* disclosure_indicator_down.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */; };
 		A3E2D418197CDAE800C980F1 /* disclosure_indicator_right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */; };
+		A3ECE174199DBF2400A06092 /* UIPopoverController+iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECE173199DBF2400A06092 /* UIPopoverController+iPhone.m */; };
 		A3F30C6C197A5FB20004999E /* CitySectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */; };
 		A3F30C6E197A5FE30004999E /* CitySectionHeaderView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */; };
 /* End PBXBuildFile section */
@@ -114,6 +115,8 @@
 		A3E2D413197CC16700C980F1 /* no_photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_photo.jpg; sourceTree = "<group>"; };
 		A3E2D415197CDAE800C980F1 /* disclosure_indicator_down.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disclosure_indicator_down.jpg; sourceTree = "<group>"; };
 		A3E2D416197CDAE800C980F1 /* disclosure_indicator_right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = disclosure_indicator_right.jpg; sourceTree = "<group>"; };
+		A3ECE172199DBF2400A06092 /* UIPopoverController+iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopoverController+iPhone.h"; path = "Interface/UIPopoverController+iPhone.h"; sourceTree = "<group>"; };
+		A3ECE173199DBF2400A06092 /* UIPopoverController+iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPopoverController+iPhone.m"; path = "Interface/UIPopoverController+iPhone.m"; sourceTree = "<group>"; };
 		A3F30C6A197A5FB20004999E /* CitySectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CitySectionHeaderView.h; path = Interface/CitySectionHeaderView.h; sourceTree = "<group>"; };
 		A3F30C6B197A5FB20004999E /* CitySectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CitySectionHeaderView.m; path = Interface/CitySectionHeaderView.m; sourceTree = "<group>"; };
 		A3F30C6D197A5FE30004999E /* CitySectionHeaderView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySectionHeaderView_iPad.xib; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		A31B65EE197977A100CBCEE3 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				A3ECE171199DBEF700A06092 /* UIPopoverController+iPhone */,
 				A344D3BF1932D391007C6D72 /* Main_iPhone.storyboard */,
 				A344D3C21932D391007C6D72 /* Main_iPad.storyboard */,
 				A3ECE170199C502E00A06092 /* FullScreenImageView */,
@@ -378,6 +382,15 @@
 			name = FullScreenImageView;
 			sourceTree = "<group>";
 		};
+		A3ECE171199DBEF700A06092 /* UIPopoverController+iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				A3ECE172199DBF2400A06092 /* UIPopoverController+iPhone.h */,
+				A3ECE173199DBF2400A06092 /* UIPopoverController+iPhone.m */,
+			);
+			name = "UIPopoverController+iPhone";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -492,6 +505,7 @@
 				A3BB5D111982348C00ECD517 /* NewPlaceView.m in Sources */,
 				A31B65F619797E4B00CBCEE3 /* Photo.m in Sources */,
 				A34074261990DFD300AC9D07 /* GetLocationByMapPinView.m in Sources */,
+				A3ECE174199DBF2400A06092 /* UIPopoverController+iPhone.m in Sources */,
 				A31B65F319797E4B00CBCEE3 /* Place.m in Sources */,
 				A31B65FF19797EA300CBCEE3 /* Place+PlaceCategory.m in Sources */,
 				A31B661819799C0800CBCEE3 /* InitialDownloaderView.m in Sources */,

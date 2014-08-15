@@ -18,6 +18,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "NewPlaceView.h"
+#import "UIPopoverController+iPhone.h"
 
 #define MILE 1609.344
 
@@ -254,10 +255,13 @@ static NSString *PlaceCellIdentifier = @"CellPlace";
         // setting photo reference of cell
         cell.photo = photo;
         
+        if([place.name isEqualToString:@"Calea Victoriei"])
+            NSLog(@"Cairo citadel\n photopath: %@ %@", photo.filePath, photo.thumbnail_filePath);
         // if Photo does not have thumbnail, but has url, then add Photo to donload-stack
         if( ( photo.thumbnail_filePath == nil
            || [photo.thumbnail_filePath isEqualToString:@""] )
             && photo.url != nil && ![photo.url isEqualToString:@""]){
+            //NSLog(@"photo = nil place = %@", photo.place.name);
             [self startDownloadingPhoto:photo];
         }
     }

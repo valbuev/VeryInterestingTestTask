@@ -87,7 +87,7 @@
     CGFloat minScale = MIN(scaleWidth, scaleHeight);
     self.scrollView.minimumZoomScale = minScale;
     
-    NSLog(@"scale %f %f %f %f %f %f",scaleWidth, self.scrollView.bounds.size.width, self.image.size.width, scaleHeight, self.scrollView.bounds.size.height, self.image.size.height);
+    //NSLog(@"scale %f %f %f %f %f %f",scaleWidth, self.scrollView.bounds.size.width, self.image.size.width, scaleHeight, self.scrollView.bounds.size.height, self.image.size.height);
     
     // setting maximum scale and current scale
     self.scrollView.maximumZoomScale = 1.0f;
